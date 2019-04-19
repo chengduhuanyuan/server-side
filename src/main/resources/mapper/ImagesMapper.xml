@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.serverside.mapper.ImagesMapper">
+    <select id="getImages" resultType="com.hy.serverside.entity.Images">
+        select * from images where id = #{id};
+    </select>
+</mapper>

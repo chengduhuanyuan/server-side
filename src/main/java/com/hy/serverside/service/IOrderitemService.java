@@ -1,0 +1,14 @@
+package com.hy.serverside.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.hy.serverside.entity.Orderitem;
+
+/**
+ * @ClassName: IOrderitemService
+ * @Description: TODO
+ * @Author: Kaiser
+ * @Date: 2019/4/19 18:12
+ * @Version: 1.0
+ */
+public interface IOrderitemService extends IService<Orderitem> {
+}
