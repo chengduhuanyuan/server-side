@@ -3,10 +3,7 @@ package com.hy.serverside.config;
 import com.github.wxpay.sdk.WXPayConfig;
 import com.hy.serverside.util.Constant;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * @ClassName: WeChatPayConfig
@@ -19,13 +16,23 @@ public class WeChatPayConfig implements WXPayConfig {
 
     private byte[] certData;
 
-    public WeChatPayConfig() throws Exception {
-        String certPath = "/path/to/apiclient_cert.p12";
+    public WeChatPayConfig(){
+        String certPath = "D:\\apiclient_cert.p12";
         File file = new File(certPath);
-        InputStream certStream = new FileInputStream(file);
-        this.certData = new byte[(int) file.length()];
-        certStream.read(this.certData);
-        certStream.close();
+        InputStream certStream = null;
+        try {
+            certStream = new FileInputStream(file);
+            this.certData = new byte[(int) file.length()];
+            certStream.read(this.certData);
+        }  catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                certStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

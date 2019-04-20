@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hy.serverside.service.IHttpService;
 import com.hy.serverside.util.Constant;
 import com.hy.serverside.util.RedisCacheUtil;
+import com.hy.serverside.util.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -68,6 +69,12 @@ public class WechatController {
             e.printStackTrace();
         }
         return new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
+    }
+
+    @GetMapping("/unifiedOrder")
+    public Map<String,String> unifiedOrder(){
+        WXPayUtil wxPayUtil = new WXPayUtil();
+        return null;
     }
 
 }

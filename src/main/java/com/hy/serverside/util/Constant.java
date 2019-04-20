@@ -25,9 +25,21 @@ public final class Constant {
     public static final String APPSECRET_KEY = "secret";
     public static final String JS_CODE_KEY = "js_code";
     public static final String NAME_KEY = "name";
+    /**
+     *  支付密匙
+     */
     public static final String PAY_KEY = "";
     /**
      *  商户号
      */
     public static final String MCHID = "asdasd";
+    /**
+     * 标价币种
+     */
+    public static final String FEE_TYPE = "CNY";
+    /**
+     *  交易类型，小程序指定JSAPI
+     */
+    public static final String TRADE_TYPE = "JSAPI";
+
 }
