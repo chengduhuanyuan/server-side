@@ -10,3 +10,5 @@ spring:
     url: jdbc:mysql://140.246.250.63:3306/${db}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: root
     password: 0q8O<G+Ry!lj
+logging:
+  config: classpath:log4j2.yml
