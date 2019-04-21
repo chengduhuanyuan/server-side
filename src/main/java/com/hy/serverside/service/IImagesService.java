@@ -13,5 +13,6 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface IImagesService extends IService<Images> {
+
     List<Images> getAll(Integer id);
 }

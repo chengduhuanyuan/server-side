@@ -12,4 +12,6 @@ import com.hy.serverside.entity.User;
  */
 public interface IUserService extends IService<User> {
     User getTest(Integer id);
+
+    boolean addUser(User user);
 }

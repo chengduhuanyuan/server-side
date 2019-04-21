@@ -5,4 +5,8 @@
     <select id="getUserTest" resultType="com.hy.serverside.entity.User">
         select * from user where id = #{id};
     </select>
+
+    <update id="addUser">
+
+    </update>
 </mapper>
