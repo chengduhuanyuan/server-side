@@ -13,4 +13,5 @@ import com.hy.serverside.entity.Product;
 public interface IProductService extends IService<Product> {
 
 
+    int Favorite(String openid,String goodid);
 }

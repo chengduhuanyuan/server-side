@@ -65,4 +65,16 @@ public class ProductController {
         map.put("validDate",1);
         return map;
     }
+
+
+    @GetMapping("/goodsFavorite")
+    @ResponseBody
+    public Map<String,Object> goodfavorite(String openid,String goodid){
+        int f=iProductService.Favorite(openid,goodid);
+        Map<String,Object> map=new HashMap<>();
+        map.put("code",0);
+        map.put("isFavorite",f);
+        map.put("reason","");
+        return map;
+    }
 }
