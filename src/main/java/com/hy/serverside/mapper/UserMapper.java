@@ -17,4 +17,7 @@ import org.apache.ibatis.annotations.Options;
 public interface UserMapper extends BaseMapper<User> {
     @Options
     User getUserTest(Integer id);
+
+    @Options
+    boolean addUser(User user);
 }
