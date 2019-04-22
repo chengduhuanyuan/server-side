@@ -69,8 +69,8 @@ public class ProductController {
 
     @GetMapping("/goodsFavorite")
     @ResponseBody
-    public Map<String,Object> goodfavorite(String openid,String goodid){
-        int f=iProductService.Favorite(openid,goodid);
+    public Map<String,Object> goodfavorite(String openId,String goodsId){
+        int f=iProductService.Favorite(openId,goodsId);
         Map<String,Object> map=new HashMap<>();
         map.put("code",0);
         map.put("isFavorite",f);
