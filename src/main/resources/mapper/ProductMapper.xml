@@ -3,7 +3,7 @@
 <mapper namespace="com.hy.serverside.mapper.ProductMapper">
 
     <select id="Favorite" resultType="String">
-        select product_id from collect where user_id=#{openid} and product_id=#{goodid}
+        select product_id from collect where user_id=#{openId} and product_id=#{goodsId}
     </select>
 
 </mapper>
