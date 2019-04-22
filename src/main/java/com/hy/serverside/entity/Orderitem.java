@@ -28,4 +28,5 @@ public class Orderitem implements Serializable {
     private String openid;
 
     private Integer number;
+
 }

@@ -1,6 +1,9 @@
 package com.hy.serverside.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hy.serverside.entity.Images;
 import com.hy.serverside.entity.Product;
 import com.hy.serverside.service.IImagesService;
@@ -35,13 +38,15 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @ResponseBody
-    public Map<String,Object> getAll(){
-        List<Product> list = iProductService.list();
+    public Map<String,Object> getAll(String page,String size){
+        Page<Product> p = new Page<>(Integer.parseInt(page), Integer.parseInt(size));
+        QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
+        IPage<Product> page1 = iProductService.page(p, queryWrapper);
         Map<String,Object> map=new HashMap<>();
         map.put("reason","");
         map.put("code",0);
-        map.put("page_total",list.size());
-        map.put("list",list);
+        map.put("page_total",1);
+        map.put("list",page1.getRecords());
         return map;
     }
 
@@ -58,6 +63,18 @@ public class ProductController {
         map.put("msg","");
 //        能否点击购买   1是可以  0是不行
         map.put("validDate",1);
+        return map;
+    }
+
+
+    @GetMapping("/goodsFavorite")
+    @ResponseBody
+    public Map<String,Object> goodfavorite(String openid,String goodid){
+        int f=iProductService.Favorite(openid,goodid);
+        Map<String,Object> map=new HashMap<>();
+        map.put("code",0);
+        map.put("isFavorite",f);
+        map.put("reason","");
         return map;
     }
 }
