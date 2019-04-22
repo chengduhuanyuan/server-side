@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 public class Order implements Serializable {
     private static final long serialVersionUID = -3448804448259661923L;
-    private Integer id;
+    private String id;
 
     private String orderCode;
 
@@ -37,7 +37,7 @@ public class Order implements Serializable {
 
     private LocalDateTime confirmDate;
 
-    private Integer uid;
+    private String openid;
 
     private String status;
 

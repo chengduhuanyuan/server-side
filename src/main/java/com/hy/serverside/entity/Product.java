@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class Product implements Serializable {
     private static final long serialVersionUID = -7470366765073757516L;
-    private Integer id;
+    private String id;
 
     private String name;
 
@@ -28,7 +28,7 @@ public class Product implements Serializable {
 
     private Integer stock;
 
-    private Integer cid;
+    private String cid;
 
     private LocalDateTime createDate;
 

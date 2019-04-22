@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Data
 public class Property implements Serializable {
     private static final long serialVersionUID = 8620544716370295173L;
-    private Integer id;
+    private String id;
 
-    private Integer cid;
+    private String cid;
 
     private String name;
 }

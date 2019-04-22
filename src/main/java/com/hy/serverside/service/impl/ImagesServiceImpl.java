@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class ImagesServiceImpl extends ServiceImpl<ImagesMapper, Images> implements IImagesService {
     @Override
-    public List<Images> getAll(Integer id) {
+    public List<Images> getAll(String id) {
         return baseMapper.getImages(id);
     }
 }

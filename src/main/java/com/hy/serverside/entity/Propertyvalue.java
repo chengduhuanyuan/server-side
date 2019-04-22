@@ -14,11 +14,11 @@ import java.io.Serializable;
 @Data
 public class Propertyvalue implements Serializable {
     private static final long serialVersionUID = -8616455092207653785L;
-    private Integer id;
+    private String id;
 
-    private Integer pid;
+    private String pid;
 
-    private Integer ptid;
+    private String ptid;
 
     private String value;
 }
