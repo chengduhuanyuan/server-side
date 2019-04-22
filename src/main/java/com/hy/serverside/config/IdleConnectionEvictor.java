@@ -1,6 +1,8 @@
 package com.hy.serverside.config;
 
 import org.apache.http.conn.HttpClientConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +28,11 @@ public class IdleConnectionEvictor extends Thread {
         try {
             while (!shutdown){
                 synchronized (this) {
-                    wait(5000);
-                    //关闭连接
-                    connectionManager.closeExpiredConnections();
+                    if(connectionManager != null){
+                        wait(10000);
+                        //关闭连接
+                        connectionManager.closeExpiredConnections();
+                    }
                 }
             }
         } catch (InterruptedException ex){

@@ -13,5 +13,5 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface ImagesMapper extends BaseMapper<Images> {
-    List<Images> getImages(Integer id);
+    List<Images> getImages(String id);
 }

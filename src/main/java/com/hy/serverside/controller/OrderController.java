@@ -28,12 +28,10 @@ public class OrderController {
      * @param order
      * @return
      */
-    @GetMapping("/saveByCart")
+    @GetMapping("/creatOrder")
     public boolean createOrder(@RequestParam Order order){
         return orderService.save(order);
     }
-
-
 
 
 }

@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Options;
 @CacheNamespace(implementation = RedisCacheMybatis.class)
 public interface UserMapper extends BaseMapper<User> {
     @Options
-    User getUserTest(Integer id);
+    User getUserTest(String id);
 
     @Options
     boolean addUser(User user);

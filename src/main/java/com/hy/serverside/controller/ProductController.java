@@ -52,7 +52,7 @@ public class ProductController {
 
     @GetMapping("/getById")
     @ResponseBody
-    public Map<String,Object> getbyid(Integer id){
+    public Map<String,Object> getbyid(String id){
         Product byId = iProductService.getById(id);
         List<Images> imgs = iImagesService.getAll(id);
         byId.setImages(imgs);
