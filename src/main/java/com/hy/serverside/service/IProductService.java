@@ -11,4 +11,6 @@ import com.hy.serverside.entity.Product;
  * @Version: 1.0
  */
 public interface IProductService extends IService<Product> {
+
+
 }
