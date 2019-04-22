@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 public class Review implements Serializable {
 
     private static final long serialVersionUID = -4002469637735797095L;
-    private Integer id;
+    private String id;
 
     private String content;
 
-    private Integer uid;
+    private String openid;
 
-    private Integer pid;
+    private String pid;
 
     private LocalDateTime createDate;
 }

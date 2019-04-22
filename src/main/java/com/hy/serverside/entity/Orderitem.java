@@ -1,6 +1,8 @@
 package com.hy.serverside.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,16 +14,18 @@ import java.io.Serializable;
  * @Version: 1.0
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orderitem implements Serializable {
 
     private static final long serialVersionUID = 1036850135458722842L;
-    private Integer id;
+    private String id;
 
-    private Integer pid;
+    private String pid;
 
-    private Integer oid;
+    private String oid;
 
-    private Integer uid;
+    private String openid;
 
     private Integer number;
 }

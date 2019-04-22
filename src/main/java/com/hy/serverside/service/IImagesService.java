@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface IImagesService extends IService<Images> {
 
-    List<Images> getAll(Integer id);
+    List<Images> getAll(String id);
 }

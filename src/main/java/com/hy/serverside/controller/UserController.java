@@ -30,7 +30,12 @@ public class UserController {
     private IImagesService imagesService;
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
-    
+
+    @GetMapping("/test")
+    public User test(@RequestParam String id){
+        return userService.getTest(id);
+    }
+
     /***
     *@Description 拉取用户信息时，将微信id存入数据库
     *@Param 

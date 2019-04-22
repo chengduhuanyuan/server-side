@@ -19,7 +19,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
 
     @Override
-    public User getTest(Integer id) {
+    public User getTest(String id) {
         return baseMapper.getUserTest(id);
     }
 

@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Data
 public class Productimage implements Serializable {
     private static final long serialVersionUID = 2454617282259807183L;
-    private Integer id;
+    private String id;
 
-    private Integer pid;
+    private String pid;
 
     private String type;
 }
