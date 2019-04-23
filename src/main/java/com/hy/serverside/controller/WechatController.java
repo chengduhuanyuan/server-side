@@ -95,7 +95,7 @@ public class WechatController {
     public JsonData saveUser(@RequestParam String nickName,@RequestParam String openid){
         User one = userService.getOne(new QueryWrapper<User>().eq("openid", openid));
         if (one == null){
-            User user = new User(nickName,openid);
+            User user = new User(nickName,openid,null);
             boolean b = userService.save(user);
             if (b){
                 return new JsonData(null,"保存成功",true);

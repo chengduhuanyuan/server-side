@@ -1,5 +1,8 @@
 package com.hy.serverside.util;
 
+
+import java.text.*;
+import java.util.Calendar;
 import java.util.UUID;
 
 /**
@@ -10,27 +13,55 @@ import java.util.UUID;
  * @Version: 1.0
  */
 public class IdUtil {
-    private static int machineId = 1;
-    private static int hashCodeV = UUID.randomUUID().toString().hashCode();
-    /**
-     *  获取订单ID
-     * @return
-     */
-    public static String getOrderId(){
-        if (hashCodeV < 0) {
-            hashCodeV = -hashCodeV;
+    private static volatile IdUtil instance;
+    private IdUtil() {}
+    public static IdUtil getInstance(){
+        if (instance == null){
+            synchronized (IdUtil.class){
+                if (instance == null) {
+                    instance = new IdUtil();
+                }
+            }
         }
-        return machineId + String.format("%015d",hashCodeV);
+        return instance;
     }
 
-    /**
-     *  生成唯一id
-     * @return
-     */
-    public static String getId(){
-        if (hashCodeV < 0) {
-            hashCodeV = -hashCodeV;
+    private static final FieldPosition HELPER_POSITION = new FieldPosition(0);
+
+    /** 时间：精确到秒 */
+    private final static SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+
+    private final static NumberFormat numberFormat = new DecimalFormat("00000");
+
+    private static int seq = 0;
+
+    private static final int MAX = 99999;
+
+    public synchronized String generateOrderNo() {
+
+        Calendar rightNow = Calendar.getInstance();
+
+        StringBuffer sb = new StringBuffer();
+
+        dateFormat.format(rightNow.getTime(), sb, HELPER_POSITION);
+
+        numberFormat.format(seq, sb, HELPER_POSITION);
+
+        if (seq == MAX) {
+            seq = 0;
+        } else {
+            seq++;
         }
-        return machineId + String.format("%010d",hashCodeV);
+
+        return sb.toString();
     }
+
+   public String generateIdNo(){
+       int hashCodeV = UUID.randomUUID().toString().hashCode();
+       if (hashCodeV < 0) {
+           hashCodeV = -hashCodeV;
+       }
+       return String.format("%010d",hashCodeV);
+   }
+
 }
