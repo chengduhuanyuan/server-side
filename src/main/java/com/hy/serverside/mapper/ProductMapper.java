@@ -12,4 +12,6 @@ import com.hy.serverside.entity.Product;
  */
 public interface ProductMapper extends BaseMapper<Product> {
     String Favorite(String openId,String goodsId);
+
+    boolean addFavorite(String openId, String goodsId);
 }

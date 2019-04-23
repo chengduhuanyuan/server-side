@@ -14,4 +14,6 @@ public interface IProductService extends IService<Product> {
 
 
     int Favorite(String openid,String goodid);
+
+    int addFavorite(String openId, String goodsId);
 }

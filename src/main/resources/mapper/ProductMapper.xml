@@ -6,4 +6,7 @@
         select product_id from collect where user_id=#{openId} and product_id=#{goodsId}
     </select>
 
+    <insert id="addFavorite">
+      INSERT INTO collect(product_id,user_id) VALUES (#{openId}, #{goodsId})
+    </insert>
 </mapper>

@@ -35,7 +35,14 @@ public class ProductController {
     private IImagesService iImagesService;
 
 
-
+    /***
+    *@Description 分页查看所有商品
+    *@Param [page, size]
+    *@Return java.util.Map<java.lang.String,java.lang.Object>
+    *@Author 杨席杰
+    *@Date 2019/4/23
+    *@Time 11:10
+    */
     @GetMapping("/getAll")
     @ResponseBody
     public Map<String,Object> getAll(String page,String size){
@@ -49,7 +56,15 @@ public class ProductController {
         map.put("list",page1.getRecords());
         return map;
     }
-
+    
+    /***
+    *@Description 查看商品详细信息
+    *@Param [id]
+    *@Return java.util.Map<java.lang.String,java.lang.Object>
+    *@Author 杨席杰
+    *@Date 2019/4/23
+    *@Time 11:11
+    */
     @GetMapping("/getById")
     @ResponseBody
     public Map<String,Object> getbyid(String id){
@@ -66,15 +81,35 @@ public class ProductController {
         return map;
     }
 
-
+    /***
+    *@Description 判断该商品是否被收藏
+    *@Param [openId, goodsId]
+    *@Return java.util.Map<java.lang.String,java.lang.Object>
+    *@Author 杨席杰
+    *@Date 2019/4/23
+    *@Time 8:57
+    */
     @GetMapping("/goodsFavorite")
     @ResponseBody
     public Map<String,Object> goodfavorite(String openId,String goodsId){
-        int f=iProductService.Favorite(openId,goodsId);
+        Map<String,Object> map=new HashMap<>();
+        int f;
+        try {
+            f=iProductService.Favorite(openId,goodsId);
+
+        }catch (Exception e){
+            map.put("code",-1);
+        }
+        map.put("reason","");
+        return map;
+    }
+    @GetMapping("/addFavorite")
+    @ResponseBody
+    public Map<String,Object> addFavorite(String openId,String goodsId){
+       int f= iProductService.addFavorite(openId,goodsId);
         Map<String,Object> map=new HashMap<>();
         map.put("code",0);
-        map.put("isFavorite",f);
-        map.put("reason","");
+        map.put("result","");
         return map;
     }
 }
