@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hy.serverside.mapper.ProductMapper">
-
+    <resultMap id="proMap" type="Product">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="subTitle" column="sub_title"></result>
+        <result property="originalPrice" column="original_price"></result>
+        <result property="promotePrice" column="promote_price"></result>
+        <result property="stock" column="stock"></result>
+        <result property="cid" column="cid"></result>
+        <result property="createDate" column="create_date"></result>
+        <result property="cover" column="cover"></result>
+        <result property="detailInfo" column="detail_info"></result>
+    </resultMap>
     <select id="Favorite" resultType="String">
         select product_id from collect where user_id=#{openId} and product_id=#{goodsId}
     </select>
@@ -9,4 +20,12 @@
     <insert id="addFavorite">
       INSERT INTO collect(product_id,user_id) VALUES (#{openId}, #{goodsId})
     </insert>
+
+    <select id="getCateAll" resultMap="proMap">
+        select * from product
+        <if test="category != null and category != '' or category!=0">
+            where cid=#{category}
+            </if>
+        limit #{page},#{size}
+    </select>
 </mapper>
