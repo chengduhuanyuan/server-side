@@ -20,14 +20,19 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Override
     public int Favorite(String openid,String goodid) {
         String favorite = baseMapper.Favorite(openid,goodid);
-        System.out.print("");
-        System.out.print("");
-        System.out.print("");
-        System.out.println(favorite);
         if (favorite==null){
             return 0;
         }
             return 1;
 
+    }
+
+    @Override
+    public int addFavorite(String openId, String goodsId) {
+        boolean b=baseMapper.addFavorite(openId,goodsId);
+        if (b){
+            return 0;
+        }
+        return 1;
     }
 }
