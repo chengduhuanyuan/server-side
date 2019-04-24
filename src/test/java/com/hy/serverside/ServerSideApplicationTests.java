@@ -13,9 +13,7 @@ public class ServerSideApplicationTests {
     ProductMapper productMapper;
     @Test
     public void contextLoads() {
-        boolean b = productMapper.addFavorite("oo3H-4_UiXcMu9baT26xsLA7KQUQ", "4");
-//        int i = service.addFavorite("oo3H-4_UiXcMu9baT26xsLA7KQUQ", "4");
-        System.out.println(b);
+        System.out.println(11%10);
     }
 
 }

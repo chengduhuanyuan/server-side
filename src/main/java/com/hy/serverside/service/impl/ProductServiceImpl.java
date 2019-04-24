@@ -45,4 +45,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         List<Product> products=baseMapper.getCateAll(page,size,Integer.parseInt(category));
         return products;
     }
+
+    @Override
+    public int getCateSize(String category) {
+        int s=baseMapper.getCateSize(Integer.parseInt(category));
+        return s;
+    }
 }

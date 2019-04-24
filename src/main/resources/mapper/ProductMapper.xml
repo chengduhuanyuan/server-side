@@ -28,4 +28,11 @@
             </if>
         limit #{page},#{size}
     </select>
+
+    <select id="getCateSize" resultType="int">
+        select Count(*) from product
+        <if test="category != null and category != '' or category!=0">
+            where cid=#{category}
+        </if>
+    </select>
 </mapper>

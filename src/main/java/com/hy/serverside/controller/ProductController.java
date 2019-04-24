@@ -46,19 +46,22 @@ public class ProductController {
     @GetMapping("/getAll")
     @ResponseBody
     public Map<String,Object> getAll(String page,String size,String category){
-        System.out.println("类别++++++++"+category);
         if(category==null){
             category="0";
         }
         List<Product> products=iProductService.getCateAll(Integer.parseInt(page),Integer.parseInt(size),category);
-        System.out.println(products);
-//        Page<Product> p = new Page<>(Integer.parseInt(page), Integer.parseInt(size));
-//        QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
-//        IPage<Product> page1 = iProductService.page(p, queryWrapper);
+        int length=iProductService.getCateSize(category);
+        System.out.println(length);
         Map<String,Object> map=new HashMap<>();
+        int total;
+        if(length%10>0){
+            total=length/10+1;
+        }else {
+            total=length/10;
+        }
         map.put("reason","");
         map.put("code",0);
-        map.put("page_total",2);
+        map.put("page_total",total);
         map.put("list",products);
         return map;
     }

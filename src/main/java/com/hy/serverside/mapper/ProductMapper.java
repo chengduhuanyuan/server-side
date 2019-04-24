@@ -19,4 +19,6 @@ public interface ProductMapper extends BaseMapper<Product> {
     boolean addFavorite(String openId, String goodsId);
 
     List<Product> getCateAll(@Param("page") int page, @Param("size") int size,@Param("category") int category);
+
+    int getCateSize(@Param("category") int category);
 }
