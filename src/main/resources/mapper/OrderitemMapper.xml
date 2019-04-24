@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hy.serverside.mapper.OrderitemMapper">
+    <select id="getShopCartList" resultMap="shopCartMap">
+      SELECT <include refid="shopColumn"/> FROM orderitem oi,product p
+      WHERE oi.pid = p.id AND oi.openid = #{openid};
+    </select>
+    <resultMap id="shopCartMap" type="com.hy.serverside.entity.ShopCart">
+        <result column="id" property="id"/>
+        <result column="openid" property="openid"/>
+        <result column="oid" property="orderId"/>
+        <result column="number" property="num"/>
+        <collection property="product" column="pid" ofType="com.hy.serverside.entity.Product" autoMapping="true"/>
+    </resultMap>
+    
+    <sql id="shopColumn">oi.id,p.id,p.name,p.cover,p.original_price,oi.number</sql>
 </mapper>

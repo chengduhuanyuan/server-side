@@ -62,21 +62,23 @@ public class WechatController {
         map.put(Constant.APPID_KEY,Constant.APPID);
         map.put(Constant.APPSECRET_KEY,Constant.APPSECRET);
         String s = httpService.doGet(Constant.ACCESS_TOKEN_URL, map);
-        System.out.println("得到信息："+s);
         JSONObject object = JSONObject.parseObject(s);
         RedisCacheUtil redisCacheUtil = new RedisCacheUtil();
         redisCacheUtil.setRedisCache(Constant.ACCESS_TOKEN_KEY,object.getString("access_token"),
                 Long.parseLong(object.getString("expires_in")),redisTemplate);
-        System.out.println("...........");
     }
     @GetMapping("/wechat/getAccessToken")
     public String getAccessToken(){
-        try {
-            this.timerGetAccessToken();
-        } catch (Exception e) {
-            e.printStackTrace();
+        String accessToken = new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
+        if (accessToken == null){
+            try {
+                this.timerGetAccessToken();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
         }
-        return new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
+        return accessToken;
     }
 
     @GetMapping("/unifiedOrder")
