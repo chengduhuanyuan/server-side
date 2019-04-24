@@ -1,6 +1,7 @@
 package com.hy.serverside.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hy.serverside.entity.Orderitem;
 import com.hy.serverside.entity.ShopCart;
 import com.hy.serverside.service.IOrderitemService;
@@ -37,8 +38,7 @@ public class OrderitemController {
     @GetMapping("/add")
     public JsonData addCart(@RequestParam String openId, @RequestParam String goodsId, @RequestParam Integer num){
         if (openId != null){
-            String orderId = IdUtil.getInstance().generateOrderNo();
-            Orderitem orderitem = new Orderitem(IdUtil.getInstance().generateIdNo(), goodsId, orderId, openId, num);
+            Orderitem orderitem = new Orderitem(IdUtil.getInstance().generateIdNo(), goodsId, openId, num);
             boolean save = orderitemService.save(orderitem);
             if (save) {
                 return new JsonData(null,"添加成功",true);
@@ -53,6 +53,15 @@ public class OrderitemController {
         if (!shopCart.isEmpty()) {
             return new JsonData(shopCart,"成功获取",true);
         }
-        return new JsonData(null,"获取失败",false);
+        return new JsonData(null,"您购物车里没有商品！",false);
+    }
+
+    @GetMapping("/deleteCartInfo")
+    public JsonData deleteCart(@RequestParam String openId,@RequestParam String id){
+        boolean remove = orderitemService.remove(new QueryWrapper<Orderitem>().eq("id", id).eq("openid", openId));
+        if (remove) {
+            return new JsonData(null,"删除成功",true);
+        }
+        return new JsonData(null,"删除失败",false);
     }
 }
