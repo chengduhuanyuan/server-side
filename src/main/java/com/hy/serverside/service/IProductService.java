@@ -3,6 +3,8 @@ package com.hy.serverside.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hy.serverside.entity.Product;
 
+import java.util.List;
+
 /**
  * @ClassName: IProductService
  * @Description: TODO
@@ -16,4 +18,6 @@ public interface IProductService extends IService<Product> {
     int Favorite(String openid,String goodid);
 
     int addFavorite(String openId, String goodsId);
+
+    List<Product> getCateAll(int page, int size, String category);
 }

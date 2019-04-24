@@ -7,6 +7,8 @@ import com.hy.serverside.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName: ProductServiceImpl
  * @Description: TODO
@@ -34,5 +36,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             return 0;
         }
         return 1;
+    }
+
+    @Override
+    public List<Product> getCateAll(int page, int size, String category) {
+        System.out.println(page+"+"+size+"+"+category);
+        page=(page-1)*size;
+        List<Product> products=baseMapper.getCateAll(page,size,Integer.parseInt(category));
+        return products;
     }
 }
