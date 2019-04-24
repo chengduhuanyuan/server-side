@@ -78,6 +78,7 @@ public class WechatController {
             }
             return new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
         }
+        System.out.println(accessToken);
         return accessToken;
     }
 

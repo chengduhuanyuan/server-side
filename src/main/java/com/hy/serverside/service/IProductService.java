@@ -13,11 +13,11 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface IProductService extends IService<Product> {
-
-
-    int Favorite(String openid,String goodid);
+    int Favorite(String openid, String goodid);
 
     int addFavorite(String openId, String goodsId);
 
     List<Product> getCateAll(int page, int size, String category);
+
+    int getCateSize(String category);
 }
