@@ -23,8 +23,6 @@ public class Orderitem implements Serializable {
 
     private String pid;
 
-    private String oid;
-
     private String openid;
 
     private Integer number;
