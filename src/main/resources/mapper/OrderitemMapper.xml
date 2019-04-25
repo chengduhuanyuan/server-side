@@ -6,12 +6,12 @@
       WHERE oi.pid = p.id AND oi.openid = #{openid};
     </select>
     <resultMap id="shopCartMap" type="com.hy.serverside.entity.ShopCart">
-        <result column="id" property="id"/>
+        <result column="orderitem_id" property="orderitemId"/>
         <result column="openid" property="openid"/>
         <result column="oid" property="orderId"/>
         <result column="number" property="num"/>
         <collection property="product" column="pid" ofType="com.hy.serverside.entity.Product" autoMapping="true"/>
     </resultMap>
     
-    <sql id="shopColumn">oi.id,p.id,p.name,p.cover,p.original_price,oi.number</sql>
+    <sql id="shopColumn">oi.orderitem_id,p.id,p.name,p.cover,p.original_price,oi.number</sql>
 </mapper>

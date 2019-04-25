@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class ShopCart implements Serializable {
     private static final long serialVersionUID = -1185403385119054601L;
 
-    private String id;
+    private String orderitemId;
     private Product product;
     private String orderId;
     private String openid;

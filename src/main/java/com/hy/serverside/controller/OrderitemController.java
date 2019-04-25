@@ -58,7 +58,7 @@ public class OrderitemController {
 
     @GetMapping("/deleteCartInfo")
     public JsonData deleteCart(@RequestParam String openId,@RequestParam String id){
-        boolean remove = orderitemService.remove(new QueryWrapper<Orderitem>().eq("id", id).eq("openid", openId));
+        boolean remove = orderitemService.remove(new QueryWrapper<Orderitem>().eq("orderitem_id", id).eq("openid", openId));
         if (remove) {
             return new JsonData(null,"删除成功",true);
         }

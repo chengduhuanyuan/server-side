@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class Orderitem implements Serializable {
 
     private static final long serialVersionUID = 1036850135458722842L;
-    private String id;
+    private String orderitemId;
 
     private String pid;
 
