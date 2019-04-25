@@ -36,5 +36,7 @@ public class Product implements Serializable {
 
     private String detailInfo;
 
+    private String logo;
+
     private List<Images> images;
 }

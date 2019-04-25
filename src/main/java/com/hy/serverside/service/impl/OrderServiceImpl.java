@@ -6,6 +6,10 @@ import com.hy.serverside.mapper.OrderMapper;
 import com.hy.serverside.service.IOrderService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @ClassName: OrderServiceImpl
  * @Description: TODO
@@ -15,4 +19,44 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+    @Override
+    public int getOrderSize(String openid) {
+        int size=baseMapper.getOrderSize(openid);
+        return size;
+    }
+
+    @Override
+    public List<Order> getOrderAll(String openid, int orderStatus, int page, int size) {
+        page=(page-1)*size;
+       List<Order> list= baseMapper.getOrderAll(openid,orderStatus,page,size);
+        return list;
+    }
+
+    @Override
+    public Map<String,Object> getOrderById(String openid) {
+        List<Order> orderList=baseMapper.getOrderById(openid);
+//        待付款
+        int pendingPayCount=0;
+//        待发货
+        int backrdersCount=0;
+//        待收货
+        int shippedCount=0;
+        for(Order o:orderList){
+            if( o.getStatus()==1){
+                System.out.println();
+               pendingPayCount++;
+           }
+           if(o.getStatus()==2){
+               backrdersCount++;
+           }
+           if(o.getStatus()==3){
+               shippedCount++;
+           }
+        }
+        Map<String,Object> map= new HashMap<>();
+        map.put("pendingPayCount",pendingPayCount);
+        map.put("backrdersCount",backrdersCount);
+        map.put("shippedCount",shippedCount);
+        return map;
+    }
 }

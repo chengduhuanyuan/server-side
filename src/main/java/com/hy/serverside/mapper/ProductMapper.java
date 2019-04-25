@@ -21,4 +21,6 @@ public interface ProductMapper extends BaseMapper<Product> {
     List<Product> getCateAll(@Param("page") int page, @Param("size") int size,@Param("category") int category);
 
     int getCateSize(@Param("category") int category);
+
+    List<Product> getProductById(int pid);
 }
