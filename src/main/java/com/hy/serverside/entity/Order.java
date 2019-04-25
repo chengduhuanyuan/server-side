@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @ClassName: Order
@@ -14,18 +15,15 @@ import java.time.LocalDateTime;
  */
 @Data
 public class Order implements Serializable {
+
     private static final long serialVersionUID = -3448804448259661923L;
     private String id;
 
-    private String orderCode;
+    private double goodsPrices;
 
-    private String address;
 
-    private String post;
+    private int addressId;
 
-    private String receiver;
-
-    private String mobile;
 
     private String userMessage;
 
@@ -39,6 +37,9 @@ public class Order implements Serializable {
 
     private String openid;
 
-    private String status;
+//    1待付款 2代发货 3待收货
+    private int status;
+
+    private List<Product> list;
 
 }

@@ -51,7 +51,6 @@ public class ProductController {
         }
         List<Product> products=iProductService.getCateAll(Integer.parseInt(page),Integer.parseInt(size),category);
         int length=iProductService.getCateSize(category);
-        System.out.println(length);
         Map<String,Object> map=new HashMap<>();
         int total;
         if(length%10>0){
