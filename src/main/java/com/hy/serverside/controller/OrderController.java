@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Map;
+
 /**
  * <p>
  *  前端控制器
@@ -28,14 +30,11 @@ public class OrderController {
     private IProductService iProductService;
 
 
-    /**
-     *  生成订单
-     * @param order
-     * @return
-     */
     @GetMapping("/creatOrder")
-    public boolean createOrder(@RequestParam Order order){
-        return orderService.save(order);
+    public boolean createOrder(String openid, String totalPrice, Map<String,String> mapObj){
+        System.out.println("openid:"+openid+"         totalPrice:"+totalPrice);
+        System.out.println(mapObj.toString());
+        return false;
     }
 
     /***

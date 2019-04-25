@@ -28,8 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/getUserInfo")
-    public User getUserInfo(@RequestParam String openid){
-        System.out.println("openid是："+openid);
-        return userService.getById(openid);
+    public User getUserInfo(String openId){
+        return userService.getById(openId);
     }
 }
