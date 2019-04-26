@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hy.serverside.mapper.AnnieorderMapper">
+    <resultMap id="orders" type="com.hy.serverside.entity.Annieorder">
+        <id property="id" column="id"/>
+        <result property="goodsPrices" column="'goods_prices"/>
+        <result property="addressId" column="address_id"/>
+        <result property="userMessage" column="user_message"/>
+        <result property="createDate" column="create_date"/>
+        <result property="payDate" column="pay_date"/>
+        <result property="deliveryDate" column="deliver_date"/>
+        <result property="confirmDate" column="confirm_date"/>
+        <result property="openid" column="openid"/>
+        <result property="status" column="status"/>
+        <collection property="list" select="com.hy.serverside.mapper.ProductMapper.getProductById" column="id" javaType="ArrayList"></collection>
+    </resultMap>
+
+    <select id="getOrderSize" resultType="int">
+        select Count(*) from annieorder where openid =#{openid}
+    </select>
+    <select id="getOrderById" resultMap="orders">
+    select * from annieorder where openid=#{openid}
+  </select>
+
+    <select id="getOrderAll" resultMap="orders">
+        select * from annieorder
+        where openid=#{openid}
+     <if test="orderStatus != null and orderStatus != '' or orderStatus!=0">
+     and status=#{orderStatus}
+     </if>
+        ORDER BY status
+        desc
+      limit #{page},#{size}
+    </select>
+
+
+</mapper>

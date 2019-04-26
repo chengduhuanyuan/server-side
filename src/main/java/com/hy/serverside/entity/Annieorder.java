@@ -3,35 +3,34 @@ package com.hy.serverside.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @ClassName: Order
+ * @ClassName: Annieorder
  * @Description: TODO
  * @Author: Kaiser
  * @Date: 2019/4/19 17:45
  * @Version: 1.0
  */
 @Data
-public class Order implements Serializable {
+public class Annieorder implements Serializable {
 
     private static final long serialVersionUID = -3448804448259661923L;
     private String id;
 
     private double goodsPrices;
 
-    private int addressId;
+    private String addressId;
 
     private String userMessage;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
-    private LocalDateTime payDate;
+    private String payDate;
 
-    private LocalDateTime deliveryDate;
+    private String deliveryDate;
 
-    private LocalDateTime confirmDate;
+    private String confirmDate;
 
     private String openid;
 
