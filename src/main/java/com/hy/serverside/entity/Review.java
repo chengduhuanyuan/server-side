@@ -3,7 +3,6 @@ package com.hy.serverside.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @ClassName: Review
@@ -24,5 +23,5 @@ public class Review implements Serializable {
 
     private String pid;
 
-    private LocalDateTime createDate;
+    private String createDate;
 }
