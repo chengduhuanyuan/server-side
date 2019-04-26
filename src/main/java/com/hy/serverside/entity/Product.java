@@ -3,7 +3,6 @@ package com.hy.serverside.entity;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class Product implements Serializable {
 
     private String cid;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
     private String cover;
 

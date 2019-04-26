@@ -14,24 +14,24 @@ import java.util.List;
  * @Version: 1.0
  */
 @Data
-public class Order implements Serializable {
+public class Annieorder implements Serializable {
 
     private static final long serialVersionUID = -3448804448259661923L;
     private String id;
 
-    private int addressId;
+    private double goodsPrices;
 
-    private Float goodsPrices;
+    private String addressId;
 
     private String userMessage;
 
-    private LocalDateTime createDate;
+    private String createDate;
 
-    private LocalDateTime payDate;
+    private String payDate;
 
-    private LocalDateTime deliveryDate;
+    private String deliveryDate;
 
-    private LocalDateTime confirmDate;
+    private String confirmDate;
 
     private String openid;
 
