@@ -21,4 +21,11 @@ public interface OrderitemMapper extends BaseMapper<Orderitem> {
      * @return
      */
     List<ShopCart> getShopCartList(@Param("openid") String openid);
+
+    /**
+     *  批量删除购物车数据
+     * @param orderitemIds
+     * @return
+     */
+    int delShopCartPro(List<String> orderitemIds);
 }

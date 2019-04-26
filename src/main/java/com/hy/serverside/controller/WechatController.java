@@ -69,16 +69,19 @@ public class WechatController {
     }
     @GetMapping("/wechat/getAccessToken")
     public String getAccessToken(){
-        String accessToken = new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
-        if (accessToken == null){
+        String accessToken = null;
+        try {
+            accessToken = new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
+        } catch (NullPointerException e){
             try {
                 this.timerGetAccessToken();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
+        }
+        if (accessToken == null){
             return new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
         }
-        System.out.println(accessToken);
         return accessToken;
     }
 

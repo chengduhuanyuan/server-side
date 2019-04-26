@@ -23,4 +23,10 @@ public class OrderitemServiceImpl extends ServiceImpl<OrderitemMapper, Orderitem
     public List<ShopCart> getShopCart(String openid) {
         return baseMapper.getShopCartList(openid);
     }
+
+    @Override
+    public boolean delShopCart(List<String> oritemIds) {
+        int i = baseMapper.delShopCartPro(oritemIds);
+        return i > 0;
+    }
 }

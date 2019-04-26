@@ -48,11 +48,11 @@ public class AnnieorderController {
         if (size>0){
             String orderNo = IdUtil.getInstance().generateOrderNo();
             List<Order2product> list = new ArrayList<>(size);
-            List<String> shopCartList = new ArrayList<>(size);
             Map<String,String> orderPro = new HashMap<>(size);
+            List<String> item = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
-                shopCartList.add(object.get("orderitemId").toString());
+                item.add(object.get("orderitemId").toString());
                 JSONObject product = JSONObject.parseObject(object.get("product").toString());
                 orderPro.put(product.get("id").toString(),object.get("num").toString());
             }
@@ -70,7 +70,8 @@ public class AnnieorderController {
             System.out.println(annieorder.toString());
             boolean save = orderService.save(annieorder);
             boolean saveBatch = order2productService.saveBatch(list);
-            boolean removeByIds = orderitemService.removeByIds(shopCartList);
+            boolean removeByIds = orderitemService.delShopCart(item);
+            System.out.println("是否执行删除操作："+removeByIds);
             if (save&&saveBatch&&removeByIds){
                 return new JsonData(null,"success",true);
             }
