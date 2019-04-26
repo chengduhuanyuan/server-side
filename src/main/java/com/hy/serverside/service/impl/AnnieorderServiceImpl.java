@@ -59,4 +59,16 @@ public class AnnieorderServiceImpl extends ServiceImpl<AnnieorderMapper, Annieor
         map.put("shippedCount",shippedCount);
         return map;
     }
+
+    @Override
+    public int delOrder(String orderNo) {
+       int i= baseMapper.delOrder(orderNo);
+        return i;
+    }
+
+    @Override
+    public int orderConfirm(String orderNo) {
+        int i=baseMapper.orderConfirm(orderNo);
+        return i;
+    }
 }
