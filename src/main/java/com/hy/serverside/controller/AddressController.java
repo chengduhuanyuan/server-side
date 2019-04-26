@@ -119,4 +119,12 @@ public class AddressController {
         }
         return new JsonData(null,"更新失败",updateById);
     }
+    @GetMapping("/getDefaultAddress")
+    public JsonData getDefaultAddress(String id){
+        Address one = addressService.getOne(new QueryWrapper<Address>().eq("openid", id).eq("is_default", 1));
+        if (one != null){
+            return new JsonData(one,"success",true);
+        }
+        return new JsonData(null,"fail",false);
+    }
 }

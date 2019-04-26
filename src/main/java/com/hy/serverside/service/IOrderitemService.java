@@ -14,5 +14,17 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface IOrderitemService extends IService<Orderitem> {
+    /**
+     *  获取购物车信息
+     * @param openid
+     * @return
+     */
     List<ShopCart> getShopCart(String openid);
+
+    /**
+     *  批量删除购物车
+     * @param oritemIds
+     * @return
+     */
+    boolean delShopCart(List<String> oritemIds);
 }
