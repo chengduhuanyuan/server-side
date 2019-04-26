@@ -120,4 +120,18 @@ public class ProductController {
         map.put("result","");
         return map;
     }
+    @GetMapping("/searchkeyword")
+    public Map<String,Object> searchkeyword(String searchKeyWords,String page,String size){
+        System.out.println("关键字："+searchKeyWords);
+        List<Product> productList=iProductService.searchkeyword(page,size,searchKeyWords);
+        Map<String,Object> map=new HashMap<>();
+        map.put("list",productList);
+        map.put("code",0);
+        map.put("pageNum",1);
+        map.put("pageSize",10);
+        map.put("page_total",0);
+        map.put("reason","");
+        map.put("totalCount",0);
+        return map;
+    }
 }

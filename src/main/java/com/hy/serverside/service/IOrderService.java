@@ -19,4 +19,8 @@ public interface IOrderService extends IService<Order> {
     List<Order> getOrderAll(String openid, int orderStatus, int page, int size);
 
     Map<String,Object> getOrderById(String openid);
+
+    int delOrder(String orderNo);
+
+    int orderConfirm(String orderNo);
 }

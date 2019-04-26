@@ -4,6 +4,7 @@ package com.hy.serverside.controller;
 import com.hy.serverside.entity.Order;
 import com.hy.serverside.service.IOrderService;
 import com.hy.serverside.service.IProductService;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,12 @@ public class OrderController {
     private IOrderService orderService;
     @Autowired
     private IProductService iProductService;
+
+    public Map<String,Object> getImglist(){
+
+        Map<String,Object> map=new HashMap<>();
+        return map;
+    }
 
 
     @GetMapping("/creatOrder")
@@ -85,5 +92,29 @@ public class OrderController {
             map.put("totalCount", 0);
             return map;
         }
+        
+        /***
+        *@Description 删除订单
+        *@Param 
+        *@Return 
+        *@Author 杨席杰
+        *@Date 2019/4/26
+        *@Time 9:37
+        */
+        @GetMapping("/delOrder")
+        public Map<String,Object> delOrder(String orderNo,String flag){
+            int i=0;
+            if(flag.equals("4")){
+              i=orderService.delOrder(orderNo);
+            }else if(flag.equals("3")){
+                i=orderService.orderConfirm(orderNo);
+            }
+            System.out.println(flag);
+            Map<String, Object> map = new HashMap<>();
+            map.put("code",i-1);
+            map.put("errerTips","");
+            return map;
+        }
+
 
 }

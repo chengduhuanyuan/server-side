@@ -42,8 +42,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 //        待收货
         int shippedCount=0;
         for(Order o:orderList){
+            System.out.println(o.getStatus());
             if( o.getStatus()==1){
-                System.out.println();
                pendingPayCount++;
            }
            if(o.getStatus()==2){
@@ -58,5 +58,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         map.put("backrdersCount",backrdersCount);
         map.put("shippedCount",shippedCount);
         return map;
+    }
+
+    @Override
+    public int delOrder(String orderNo) {
+        int i=baseMapper.delOrder(orderNo);
+        return i;
+    }
+
+    @Override
+    public int orderConfirm(String orderNo) {
+        int i=baseMapper.orderConfirm(orderNo);
+        return i;
     }
 }

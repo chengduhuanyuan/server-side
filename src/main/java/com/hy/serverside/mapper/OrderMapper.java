@@ -18,4 +18,8 @@ public interface OrderMapper extends BaseMapper<Order> {
     List<Order> getOrderAll(String openid, int orderStatus,int page,int size);
 
     List<Order> getOrderById(String openid);
+
+    int delOrder(String orderNo);
+
+    int orderConfirm(String orderNo);
 }

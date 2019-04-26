@@ -3,8 +3,8 @@
 <mapper namespace="com.hy.serverside.mapper.OrderMapper">
     <resultMap id="orders" type="Order">
         <id property="id" column="id"></id>
-        <result property="goodsPrices" column="'goods_prices"></result>
         <result property="address" column="address"></result>
+        <result property="goodsPrices" column="goods_prices"></result>
         <result property="post" column="post"></result>
         <result property="receiver" column="receiver"></result>
         <result property="mobile" column="mobile"></result>
@@ -31,10 +31,25 @@
      <if test="orderStatus != null and orderStatus != '' or orderStatus!=0">
      and status=#{orderStatus}
      </if>
+        and status!=5
         ORDER BY status
         desc
       limit #{page},#{size}
     </select>
 
+    <update id="delOrder">
+        UPDATE order_ SET status = 5 WHERE id = #{orderNo}
+    </update>
+
+    <update id="orderConfirm">
+        UPDATE order_ SET status = 0 WHERE id = #{orderNo}
+    </update>
+
+    <select id="search" resultMap="orders">
+        SELECT *
+        FROM product
+        WHERE product.name LIKE %#{name}%
+        limit #{page},#{size}
+    </select>
 
 </mapper>

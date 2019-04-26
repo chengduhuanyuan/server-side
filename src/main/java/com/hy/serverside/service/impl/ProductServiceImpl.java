@@ -51,4 +51,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         int s=baseMapper.getCateSize(Integer.parseInt(category));
         return s;
     }
+
+    @Override
+    public List<Product> searchkeyword(String page, String size, String searchKeyWords) {
+        List<Product> productlsit=baseMapper.search(Integer.parseInt(page),Integer.parseInt(size),searchKeyWords);
+        return productlsit;
+    }
 }
