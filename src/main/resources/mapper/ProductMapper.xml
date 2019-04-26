@@ -12,7 +12,6 @@
         <result property="createDate" column="create_date"></result>
         <result property="cover" column="cover"></result>
         <result property="detailInfo" column="detail_info"></result>
-
     </resultMap>
     <select id="Favorite" resultType="String">
         select product_id from collect where user_id=#{openId} and product_id=#{goodsId}
@@ -42,4 +41,13 @@
             where cid=#{category}
         </if>
     </select>
+
+    <select id="searchkeyword" resultMap="proMap">
+        select * from product where product.name like '%${searchKeyWords}%'
+        <if test="category != null and category != '' or category!=0">
+            and cid=#{category}
+        </if>
+        limit #{page},#{size}
+    </select>
+
 </mapper>

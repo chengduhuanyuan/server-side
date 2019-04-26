@@ -22,7 +22,8 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     int getCateSize(@Param("category") int category);
 
+    List<Product> searchkeyword(int page, int size, String searchKeyWords,int category);
+
     List<Product> getProductById(int pid);
 
-    List<Product> search(int page, int size, String searchKeyWords);
 }

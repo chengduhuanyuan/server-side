@@ -21,5 +21,5 @@ public interface IProductService extends IService<Product> {
 
     int getCateSize(String category);
 
-    List<Product> searchkeyword(String page, String size, String searchKeyWords);
+    List<Product> searchkeyword(String page, String size, String searchKeyWords,String category);
 }

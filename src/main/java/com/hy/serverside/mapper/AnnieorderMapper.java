@@ -18,4 +18,8 @@ public interface AnnieorderMapper extends BaseMapper<Annieorder> {
     List<Annieorder> getOrderAll(String openid, int orderStatus, int page, int size);
 
     List<Annieorder> getOrderById(String openid);
+
+    int delOrder(String orderNo);
+
+    int orderConfirm(String orderNo);
 }
