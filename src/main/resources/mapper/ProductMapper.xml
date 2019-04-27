@@ -43,11 +43,19 @@
     </select>
 
     <select id="searchkeyword" resultMap="proMap">
-        select * from product where product.name like '%${searchKeyWords}%'
-        <if test="category != null and category != '' or category!=0">
-            and cid=#{category}
+        select * from product
+        <if test="category==-1">
+            where product.name
+            like '%${searchKeyWords}%'
+        </if>
+        <if test="category!=0 and category!=-1">
+        and cid=#{category}
         </if>
         limit #{page},#{size}
     </select>
+
+    <update id="addword">
+        insert
+    </update>
 
 </mapper>

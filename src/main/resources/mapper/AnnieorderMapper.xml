@@ -28,9 +28,10 @@
      <if test="orderStatus != null and orderStatus != '' or orderStatus!=0">
      and status=#{orderStatus}
      </if>
+        and status!=5
         ORDER BY status
         desc
-      limit #{page},#{size}
+        limit #{page},#{size}
     </select>
 
     <update id="delOrder">

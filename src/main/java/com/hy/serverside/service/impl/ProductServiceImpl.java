@@ -53,9 +53,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Override
     public List<Product> searchkeyword(String page, String size, String searchKeyWords,String category) {
-        if(category==""){
-            category="0";
-        }
+
         int p=Integer.parseInt(page);
         int s=Integer.parseInt(size);
         List<Product> productlsit=baseMapper.searchkeyword((p-1)*s,s,searchKeyWords,Integer.parseInt(category));

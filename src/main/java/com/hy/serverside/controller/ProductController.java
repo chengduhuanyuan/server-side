@@ -122,16 +122,20 @@ public class ProductController {
     }
     @GetMapping("/searchkeyword")
     public Map<String,Object> searchkeyword(String searchKeyWords,String page,String size,String skuval){
-        if(skuval==null){
+        String c=skuval;
+        if(skuval==null||skuval==""){
             skuval="0";
+            c="-1";
         }
-        List<Product> productList=iProductService.searchkeyword(page,size,searchKeyWords,skuval);
+        System.out.println(c);
+        List<Product> productList=iProductService.searchkeyword(page,size,searchKeyWords,c);
         Map<String,Object> map=new HashMap<>();
+        int length=iProductService.getCateSize(skuval);
         int total;
-        if(productList.size()%10>0){
-            total=productList.size()/10+1;
+        if(length%10>0){
+            total=length/10+1;
         }else {
-            total=productList.size()/10;
+            total=length/10;
         }
         map.put("list",productList);
         map.put("code",0);
