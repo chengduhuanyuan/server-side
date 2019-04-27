@@ -4,6 +4,7 @@ package com.hy.serverside.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hy.serverside.entity.Annieorder;
 import com.hy.serverside.entity.Order2product;
 import com.hy.serverside.service.IAnnieorderService;
@@ -42,41 +43,61 @@ public class AnnieorderController {
 
     @GetMapping("/creatOrder")
     @Transactional(rollbackFor = RuntimeException.class)
-    public JsonData createOrder(String openid, String totalPrice, String payList){
-        JSONArray jsonArray = JSON.parseArray(payList);
-        int size = jsonArray.size();
-        if (size>0){
+    public JsonData createOrder(String openid, String totalPrice, String payList,String receiverInfoId,String businessMessage){
+        if (payList != null){
+            System.out.println("payList是："+payList);
+            JSONArray jsonArray = JSON.parseArray(payList);
             String orderNo = IdUtil.getInstance().generateOrderNo();
-            List<Order2product> list = new ArrayList<>(size);
-            Map<String,String> orderPro = new HashMap<>(size);
-            List<String> item = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                JSONObject object = jsonArray.getJSONObject(i);
-                item.add(object.get("orderitemId").toString());
-                JSONObject product = JSONObject.parseObject(object.get("product").toString());
-                orderPro.put(product.get("id").toString(),object.get("num").toString());
-            }
-            orderPro.forEach((key,value) -> {
-                Order2product order2product = new Order2product(orderNo,key,Integer.valueOf(value));
-                list.add(order2product);
-                System.out.println(key+" : "+ value);
-            });
-            Annieorder annieorder = new Annieorder();
-            annieorder.setId(orderNo);
-            annieorder.setOpenid(openid);
-            annieorder.setCreateDate(TimeUtil.getCurrentTime());
-            annieorder.setGoodsPrices(Double.valueOf(totalPrice));
-            annieorder.setStatus(1);
-            System.out.println(annieorder.toString());
-            boolean save = orderService.save(annieorder);
-            boolean saveBatch = order2productService.saveBatch(list);
-            boolean removeByIds = orderitemService.delShopCart(item);
-            System.out.println("是否执行删除操作："+removeByIds);
-            if (save&&saveBatch&&removeByIds){
-                return new JsonData(null,"success",true);
+            int size = jsonArray.size();
+            if (size>0){
+                List<Order2product> list = new ArrayList<>(size);
+                Map<String,String> orderPro = new HashMap<>(size);
+                List<String> item = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    item.add(object.get("orderitemId").toString());
+                    JSONObject product = JSONObject.parseObject(object.get("product").toString());
+                    orderPro.put(product.get("id").toString(),object.get("num").toString());
+                }
+                orderPro.forEach((key,value) -> {
+                    Order2product order2product = new Order2product(orderNo,key,Integer.valueOf(value));
+                    list.add(order2product);
+                    System.out.println(key+" : "+ value);
+                });
+                Annieorder annieorder = new Annieorder();
+                annieorder.setId(orderNo);
+                annieorder.setOpenid(openid);
+                annieorder.setCreateDate(TimeUtil.getCurrentTime());
+                annieorder.setGoodsPrices(Double.valueOf(totalPrice));
+                annieorder.setAddressId(receiverInfoId);
+                annieorder.setUserMessage(businessMessage);
+                annieorder.setStatus(1);
+                boolean save = orderService.save(annieorder);
+                boolean saveBatch = order2productService.saveBatch(list);
+                boolean removeByIds = orderitemService.delShopCart(item);
+                System.out.println("save:"+save);
+                System.out.println("saveBatch:"+saveBatch);
+                System.out.println("removeByIds:"+removeByIds);
+                if (save&&saveBatch&&removeByIds){
+                    return new JsonData(orderNo,"success",true);
+                }
             }
         }
         return new JsonData(null,"创建订单失败",false);
+    }
+
+    /**
+     *  通过订单号获取
+     * @param tradeNo
+     * @return
+     */
+    @GetMapping("/getOneOrder")
+    public JsonData getOneOrder(String tradeNo){
+        Annieorder annieorder = orderService.getOne(new QueryWrapper<Annieorder>().eq("id", tradeNo));
+        if (annieorder != null){
+            return new JsonData(annieorder,"success",true);
+        }
+        return new JsonData(null,"fail",false);
     }
 
     /***

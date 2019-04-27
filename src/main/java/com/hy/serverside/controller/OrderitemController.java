@@ -53,7 +53,7 @@ public class OrderitemController {
         if (!shopCart.isEmpty()) {
             return new JsonData(shopCart,"成功获取",true);
         }
-        return new JsonData(null,"您购物车里没有商品！",false);
+        return new JsonData(null,"购物车是空的！",false);
     }
 
     @GetMapping("/deleteCartInfo")
@@ -74,7 +74,6 @@ public class OrderitemController {
             if (save){
                 List<ShopCart> shopCart = orderitemService.getOneShopCart(openId, goodsId);
                 if (shopCart != null) {
-                    orderitemService.remove(new QueryWrapper<Orderitem>().eq("orderitem_id", idNo).eq("openid", openId));
                     return new JsonData(shopCart,"立即购买",true);
                 }
             }
