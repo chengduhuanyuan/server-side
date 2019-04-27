@@ -33,5 +33,12 @@
       limit #{page},#{size}
     </select>
 
+    <update id="delOrder">
+        UPDATE annieorder SET status = 5 WHERE id = #{orderNo}
+    </update>
+
+    <update id="orderConfirm">
+        UPDATE annieorder SET status = 0 WHERE id = #{orderNo}
+    </update>
 
 </mapper>
