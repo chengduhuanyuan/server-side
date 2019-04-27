@@ -28,4 +28,12 @@ public interface OrderitemMapper extends BaseMapper<Orderitem> {
      * @return
      */
     int delShopCartPro(List<String> orderitemIds);
+
+    /**
+     *  立即购买获取
+     * @param openid
+     * @param productId
+     * @return
+     */
+    List<ShopCart> getOneShopCart(@Param("openid") String openid,@Param("productId") String productId);
 }

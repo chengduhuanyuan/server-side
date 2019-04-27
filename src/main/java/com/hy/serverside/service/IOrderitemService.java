@@ -27,4 +27,12 @@ public interface IOrderitemService extends IService<Orderitem> {
      * @return
      */
     boolean delShopCart(List<String> oritemIds);
+
+    /**
+     *  立即购买
+     * @param openid
+     * @param productId
+     * @return
+     */
+    List<ShopCart> getOneShopCart(String openid,String productId);
 }
