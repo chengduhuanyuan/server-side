@@ -12,6 +12,10 @@
       SELECT <include refid="shopColumn"/> FROM orderitem oi,product p
       WHERE oi.pid = p.id AND oi.openid = #{openid};
     </select>
+    <select id="getOneShopCart" resultMap="shopCartMap">
+        SELECT <include refid="shopColumn"/> FROM orderitem oi,product p
+        WHERE oi.pid = p.id AND oi.openid = #{openid} AND oi.pid = #{productId};
+    </select>
     <resultMap id="shopCartMap" type="com.hy.serverside.entity.ShopCart">
         <result column="orderitem_id" property="orderitemId"/>
         <result column="openid" property="openid"/>

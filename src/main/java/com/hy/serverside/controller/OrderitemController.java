@@ -64,4 +64,23 @@ public class OrderitemController {
         }
         return new JsonData(null,"删除失败",false);
     }
+
+    @GetMapping("/purchaseNow")
+    public JsonData purchaseNow(String openId,String goodsId,Integer num){
+        String idNo = IdUtil.getInstance().generateIdNo();
+        if (openId != null){
+            Orderitem orderitem = new Orderitem(idNo, goodsId, openId, num);
+            boolean save = orderitemService.save(orderitem);
+            if (save){
+                List<ShopCart> shopCart = orderitemService.getOneShopCart(openId, goodsId);
+                if (shopCart != null) {
+                    orderitemService.remove(new QueryWrapper<Orderitem>().eq("orderitem_id", idNo).eq("openid", openId));
+                    return new JsonData(shopCart,"立即购买",true);
+                }
+            }
+        }
+        return new JsonData(null,"购买失败",false);
+    }
+
+
 }
