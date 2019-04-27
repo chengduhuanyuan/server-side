@@ -1,7 +1,9 @@
 package com.hy.serverside.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hy.serverside.entity.User;
 import com.hy.serverside.service.IUserService;
+import com.hy.serverside.util.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,11 @@ public class UserController {
     }
 
     @GetMapping("/getUserInfo")
-    public User getUserInfo(String openId){
-        return userService.getById(openId);
+    public JsonData getUserInfo(String openId){
+        User user = userService.getOne(new QueryWrapper<User>().eq("openid", openId));
+        if (user != null){
+            return new JsonData(user,"success",true);
+        }
+        return new JsonData(null,"fail",false);
     }
 }
