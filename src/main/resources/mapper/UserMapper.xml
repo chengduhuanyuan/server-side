@@ -6,7 +6,11 @@
         select * from user where id = #{id};
     </select>
 
-    <update id="addUser">
-
-    </update>
+  <update id="saveSellto">
+      INSERT INTO relation (oneself,superior,opentime,payfor)VALUES (#{oneself},#{superior},#{opentime},0)
+  </update>
+    
+    <select id="getSuperior" resultType="Relation">
+        select * from relation where  superior=#{superior} and oneself=#{oneself}
+    </select>
 </mapper>

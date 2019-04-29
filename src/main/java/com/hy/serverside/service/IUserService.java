@@ -1,6 +1,7 @@
 package com.hy.serverside.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 
 /**
@@ -14,4 +15,8 @@ public interface IUserService extends IService<User> {
     User getTest(String id);
 
     boolean addUser(User user);
+
+    boolean saveSellto(String superior, String oneself,String opentime);
+
+    Relation getSuperior(String superior, String oneself);
 }

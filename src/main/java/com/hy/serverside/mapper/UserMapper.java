@@ -2,6 +2,7 @@ package com.hy.serverside.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.serverside.config.RedisCacheMybatis;
+import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Options;
@@ -20,4 +21,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Options
     boolean addUser(User user);
+
+    boolean saveSellto(String superior, String oneself,String opentime);
+
+    Relation getSuperior(String superior, String oneself);
 }

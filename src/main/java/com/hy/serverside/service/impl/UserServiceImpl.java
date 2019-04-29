@@ -1,6 +1,7 @@
 package com.hy.serverside.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 import com.hy.serverside.mapper.UserMapper;
 import com.hy.serverside.service.IUserService;
@@ -28,5 +29,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         boolean result = baseMapper.addUser(user);
         return false;
+    }
+
+    @Override
+    public boolean saveSellto(String superior, String oneself,String opentime) {
+        boolean b=baseMapper.saveSellto(superior,oneself,opentime);
+        return b;
+    }
+
+    @Override
+    public Relation getSuperior(String superior, String oneself) {
+        Relation relation = baseMapper.getSuperior(superior, oneself);
+
+        return relation;
     }
 }
