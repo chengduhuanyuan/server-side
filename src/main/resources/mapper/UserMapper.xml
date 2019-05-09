@@ -13,4 +13,5 @@
     <select id="getSuperior" resultType="Relation">
         select * from relation where  superior=#{superior} and oneself=#{oneself}
     </select>
+
 </mapper>
