@@ -1,19 +1,17 @@
 package com.hy.serverside.controller;
 
-import com.hy.serverside.util.AesException;
-import com.hy.serverside.util.JsonData;
-import com.hy.serverside.util.MessageToXml;
-import com.hy.serverside.util.SHA1;
+import com.hy.serverside.util.*;
+import com.hy.weixin.entity.Scene;
+import com.hy.weixin.entity.SetingCode;
+import com.hy.weixin.entity.Ticket;
+import net.sf.json.JSONObject;
 import org.apache.catalina.connector.Response;
 import org.apache.http.HttpResponse;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +46,40 @@ public class WeXinController {
             return "";
         }
     }
+//    分销二维码
+    @ResponseBody
+    @GetMapping("/getSaleCode")
+    public JsonData getSaleCode(){
+        try {
+            Scene scene = new Scene();
+            //场景值
+            scene.setScene_str("login");
+            SetingCode data = new SetingCode();
+            //设置二维码有效时间
+            data.setExpire_seconds("600");
+            data.setAction_name("QR_STR_SCENE");
+            Map<Object,Object> m=new HashMap<>();
+            m.put("scene",scene);
+            data.setAction_info(m);
+            //将对象转换为json
+            String s = JSONObject.fromObject(data).toString();
+            //获取登陆二维码
+            String code = getQrCode.getQrCode(s);
+            //将字符串转换json
+            JSONObject jsonObject = JSONObject.fromObject(code);
+            //json转换对象
+            Ticket o = (Ticket) JSONObject.toBean(jsonObject, Ticket.class);
+            Map<Object, Object> map = new HashMap<Object, Object>();
+            map.put("Ticket",o);
+            new JsonData(map);
+            return new JsonData(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonData("");
+        }
+    }
+
+
 //接收微信公众号消息
     @PostMapping("/verifyToken")
     public void getWeXml(HttpServletRequest request, HttpServletResponse response)throws Exception{
