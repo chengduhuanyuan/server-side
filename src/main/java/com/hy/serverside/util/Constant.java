@@ -16,6 +16,7 @@ public final class Constant {
     public static final String HTTP_CHARACTER = "UTF-8";
     public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
     public static final String ACCESS_TOKEN_GRANT_TYPE = "client_credential";
+    public static final String CODE_URL="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN";
     /**
      *  key
      */
