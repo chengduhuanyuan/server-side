@@ -46,7 +46,7 @@ public class MessageToXml {
         XStream xstream = new XStream();
         xstream.alias("xml", textMessage.getClass());
         return xstream.toXML(textMessage);
-    }
 
+    }
 
 }
