@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hy.serverside.mapper.ProductMapper">
-    <resultMap id="proMap" type="Product">
+    <resultMap id="proMap" type="com.hy.serverside.entity.Product">
         <id property="id" column="id"></id>
-        <result property="name" column="name"></result>
-        <result property="subTitle" column="sub_title"></result>
+        <result property="productName" column="product_name"></result>
         <result property="originalPrice" column="original_price"></result>
         <result property="promotePrice" column="promote_price"></result>
         <result property="stock" column="stock"></result>
-        <result property="cid" column="cid"></result>
-        <result property="createDate" column="create_date"></result>
+        <result property="sku" column="sku"></result>
         <result property="cover" column="cover"></result>
         <result property="detailInfo" column="detail_info"></result>
     </resultMap>
-    <select id="Favorite" resultType="String">
+    <select id="Favorite" resultType="java.lang.String">
         select product_id from collect where user_id=#{openId} and product_id=#{goodsId}
     </select>
 
@@ -53,9 +51,13 @@
         </if>
         limit #{page},#{size}
     </select>
-
-    <update id="addword">
-        insert
-    </update>
-
+    <select id="getProductDetailById" resultMap="productDetail">
+        SELECT <include refid="detailCloum"/> FROM product p,images i
+        WHERE p.id = i.product_id AND p.id = #{id}
+    </select>
+    <resultMap id="productDetail" type="com.hy.serverside.entity.ProductDetail" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="images" column="id" ofType="com.hy.serverside.entity.Images" autoMapping="true"/>
+    </resultMap>
+    <sql id="detailCloum">p.id,p.product_name,p.privilege_price,p.original_price,p.promote_price,p.stock,p.sku,p.cover,p.detail_info,i.url,i.img,i.title</sql>
 </mapper>

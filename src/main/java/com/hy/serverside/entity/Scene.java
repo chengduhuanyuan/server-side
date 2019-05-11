@@ -1,4 +1,4 @@
-package com.hy.weixin.entity;
+package com.hy.serverside.entity;
 
 /**
  * @Auther: 杨席杰

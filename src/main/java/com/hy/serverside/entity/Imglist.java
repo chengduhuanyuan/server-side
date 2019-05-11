@@ -10,8 +10,10 @@ import java.io.Serializable;
  */
 @Data
 public class Imglist implements Serializable {
+    private static final long serialVersionUID = 6086025891870029724L;
     private String id;
-    private String advertUrl;
+    private String url;
+    private String img;
     private String picUrl;
     private String title;
 }

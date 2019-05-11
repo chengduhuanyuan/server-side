@@ -2,6 +2,7 @@ package com.hy.serverside.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.serverside.entity.Product;
+import com.hy.serverside.entity.ProductDetail;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,4 +27,5 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     List<Product> getProductById(int pid);
 
+    ProductDetail getProductDetailById (String id);
 }
