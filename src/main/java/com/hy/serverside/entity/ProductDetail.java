@@ -3,17 +3,18 @@ package com.hy.serverside.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * @ClassName: Product
+ * @ClassName: ProductDetail
  * @Description: TODO
  * @Author: Kaiser
- * @Date: 2019/4/19 17:47
+ * @Date: 2019/5/11 9:36
  * @Version: 1.0
  */
 @Data
-public class Product implements Serializable {
-    private static final long serialVersionUID = -7470366765073757516L;
+public class ProductDetail implements Serializable {
+    private static final long serialVersionUID = -513363866795735080L;
     private String id;
 
     private String productName;
@@ -31,4 +32,6 @@ public class Product implements Serializable {
     private String cover;
 
     private String detailInfo;
+
+    private List<Images> images;
 }

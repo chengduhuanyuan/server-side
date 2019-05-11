@@ -1,25 +1,17 @@
 package com.hy.serverside.controller;
 
+import com.hy.serverside.entity.Scene;
+import com.hy.serverside.entity.SetingCode;
+import com.hy.serverside.entity.Ticket;
 import com.hy.serverside.util.*;
-import com.hy.weixin.entity.Scene;
-import com.hy.weixin.entity.SetingCode;
-import com.hy.weixin.entity.Ticket;
+
 import net.sf.json.JSONObject;
-import org.apache.catalina.connector.Response;
-import org.apache.http.HttpResponse;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,11 +63,10 @@ public class WeXinController {
             Ticket o = (Ticket) JSONObject.toBean(jsonObject, Ticket.class);
             Map<Object, Object> map = new HashMap<Object, Object>();
             map.put("Ticket",o);
-            new JsonData(map);
-            return new JsonData(map);
+            return new JsonData(map,"success",true);
         } catch (Exception e) {
             e.printStackTrace();
-            return new JsonData("");
+            return new JsonData(null,"fail",false);
         }
     }
 

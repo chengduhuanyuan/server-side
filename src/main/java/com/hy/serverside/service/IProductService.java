@@ -2,6 +2,7 @@ package com.hy.serverside.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hy.serverside.entity.Product;
+import com.hy.serverside.entity.ProductDetail;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface IProductService extends IService<Product> {
     int getCateSize(String category);
 
     List<Product> searchkeyword(String page, String size, String searchKeyWords,String category);
+
+    ProductDetail getProductDetailById(String id);
 }

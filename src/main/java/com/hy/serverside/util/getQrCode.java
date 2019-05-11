@@ -1,8 +1,5 @@
 package com.hy.serverside.util;
 
-import com.hy.weixin.entity.Scene;
-import com.hy.weixin.entity.SetingCode;
-import net.sf.json.JSONObject;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.InputStream;
@@ -10,8 +7,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author 杨席杰

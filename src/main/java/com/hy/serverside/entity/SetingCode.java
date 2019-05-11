@@ -1,4 +1,4 @@
-package com.hy.weixin.entity;
+package com.hy.serverside.entity;
 
 import java.util.HashMap;
 import java.util.Map;

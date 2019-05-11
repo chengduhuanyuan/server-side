@@ -2,6 +2,7 @@ package com.hy.serverside.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hy.serverside.entity.Product;
+import com.hy.serverside.entity.ProductDetail;
 import com.hy.serverside.mapper.ProductMapper;
 import com.hy.serverside.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         int s=Integer.parseInt(size);
         List<Product> productlsit=baseMapper.searchkeyword((p-1)*s,s,searchKeyWords,Integer.parseInt(category));
         return productlsit;
+    }
+
+    @Override
+    public ProductDetail getProductDetailById(String id) {
+        return baseMapper.getProductDetailById(id);
     }
 }
