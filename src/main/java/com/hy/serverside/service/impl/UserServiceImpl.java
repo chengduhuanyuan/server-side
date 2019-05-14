@@ -35,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public boolean saveSellto(String parentName, String subclassName) {
         String parentName1 = baseMapper.getParentName(subclassName);
         boolean b=true;
-        if(parentName1==null||parentName==""){
+        if(parentName1==null|| "".equals(parentName)){
             baseMapper.saveSellto(parentName,subclassName);
         }else {
             b=false;
