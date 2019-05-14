@@ -5,13 +5,19 @@
     <select id="getUserTest" resultType="com.hy.serverside.entity.User">
         select * from user where id = #{id};
     </select>
-
-  <update id="saveSellto">
-      INSERT INTO relation (oneself,superior,opentime,payfor)VALUES (#{oneself},#{superior},#{opentime},0)
-  </update>
     
-    <select id="getSuperior" resultType="Relation">
-        select * from relation where  superior=#{superior} and oneself=#{oneself}
+    <select id="getParentName" resultType="String">
+        SELECT
+	      n3.node_name
+      FROM
+	      nodeInfo n1
+      INNER JOIN nodeRelationship n2 ON n1.node_id = n2.ancestor
+      INNER JOIN nodeInfo n3 ON (n2.descendant-1) = n3.node_id
+      WHERE
+	  n1.node_name = #{subclassName}
+	  	and n2.distance = 0
     </select>
+
+
 
 </mapper>
