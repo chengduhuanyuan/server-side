@@ -23,14 +23,15 @@ public class ServerSideApplicationTests {
 
     @Test
     public void hello(){
+            Runnable myRunnable = new Runnable(){
+                public void run(){
+                    System.out.println("Runnable running");
+                }
+            };
+            Thread thread = new Thread(myRunnable);
+            thread.run();
+            System.out.println("aa");
 
-        Runnable myRunnable = new Runnable(){
-            public void run(){
-                System.out.println("Runnable running");
-            }
-        };
-        Thread thread = new Thread(myRunnable);
-        thread.start();
     }
 
 }

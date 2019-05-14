@@ -32,8 +32,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public boolean saveSellto(String superior, String oneself,String opentime) {
-        boolean b=baseMapper.saveSellto(superior,oneself,opentime);
+    public boolean saveSellto(String parentName, String subclassName) {
+        boolean b=baseMapper.saveSellto(parentName,subclassName);
         return b;
     }
 
@@ -42,5 +42,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Relation relation = baseMapper.getSuperior(superior, oneself);
 
         return relation;
+    }
+
+    @Override
+    public String getParentName(String subclassName) {
+        String parentName=baseMapper.getParentName(subclassName);
+        return null;
     }
 }

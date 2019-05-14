@@ -51,21 +51,24 @@ public class UserController {
     *@Time 17:36
     */
     @GetMapping("/Sellto")
-    public JsonData Sellto(String superior,String oneself){
-        Relation relation=userService.getSuperior(superior,oneself);
-        if(relation!=null){
-            return new JsonData(null,"fail",false);
-        }else {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-            String opentime=df.format(new Date()).toString();
-            boolean b=userService.saveSellto(superior,oneself,opentime);
-            if(b){
-                return new JsonData(relation,"success",b);
-            }else {
-                return new JsonData(null,"fail",false);
-            }
-
-        }
+    public JsonData Sellto(String parentName,String subclassName){
+        boolean b = userService.saveSellto(parentName, subclassName);
+        return new JsonData(null,"",b);
     }
+
+    /***
+    *@Description 查询分销商的上级
+    *@Param
+    *@Return
+    *@Author 杨席杰
+    *@Date 2019/5/14
+    *@Time 9:53
+    */
+    @GetMapping("/getParentName")
+    public JsonData getParentName(String subclassName){
+        String parentName=userService.getParentName(subclassName);
+        return new JsonData(parentName,"",true);
+    }
+
 
 }

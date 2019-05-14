@@ -6,6 +6,9 @@ import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.mapping.StatementType;
 
 /**
  * @ClassName: UserMapper
@@ -22,7 +25,10 @@ public interface UserMapper extends BaseMapper<User> {
     @Options
     boolean addUser(User user);
 
-    boolean saveSellto(String superior, String oneself,String opentime);
-
+    @Select("call add(#{parentName},#{subclassName})")
+    @Options(statementType = StatementType.CALLABLE)
+    boolean saveSellto(@Param("parentName") String parentName, @Param("subclassName") String subclassName);
     Relation getSuperior(String superior, String oneself);
+//    查询分销上级
+    String getParentName(String subclassName);
 }

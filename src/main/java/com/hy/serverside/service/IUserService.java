@@ -16,7 +16,9 @@ public interface IUserService extends IService<User> {
 
     boolean addUser(User user);
 
-    boolean saveSellto(String superior, String oneself,String opentime);
+    boolean saveSellto(String parentName, String subclass);
 
     Relation getSuperior(String superior, String oneself);
+
+    String getParentName(String subclassName);
 }
