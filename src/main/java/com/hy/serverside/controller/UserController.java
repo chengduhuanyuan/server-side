@@ -74,7 +74,6 @@ public class UserController {
         if(parentName==null){
             return new JsonData(null,"fail",false);
         }else {
-
             return new JsonData(parentName,"success",true);
         }
     }
