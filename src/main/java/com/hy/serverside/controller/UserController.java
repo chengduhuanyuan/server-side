@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -54,6 +57,7 @@ public class UserController {
     public JsonData Sellto(String parentName,String subclassName){
         boolean b = userService.saveSellto(parentName, subclassName);
         return new JsonData(null,"",b);
+
     }
 
     /***
@@ -67,8 +71,22 @@ public class UserController {
     @GetMapping("/getParentName")
     public JsonData getParentName(String subclassName){
         String parentName=userService.getParentName(subclassName);
-        return new JsonData(parentName,"",true);
+        if(parentName==null){
+            return new JsonData(null,"fail",false);
+        }else {
+
+            return new JsonData(parentName,"success",true);
+        }
     }
 
+    @GetMapping("forword")
+    public void forword(HttpServletResponse response){
+//        ModelAndView mv = new ModelAndView("redirect:http://www.baidu.com");
+        try {
+            response.sendRedirect("http://www.baidu.com");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
