@@ -6,10 +6,7 @@ import com.hy.serverside.entity.User;
 import com.hy.serverside.service.IUserService;
 import com.hy.serverside.util.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +22,7 @@ import java.util.Date;
  * @Date: 2019/4/19 16:55
  * @Version: 1.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
