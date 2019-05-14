@@ -7,7 +7,9 @@
     </select>
     
     <select id="getParentName" resultType="String">
-        SELECT
+        SELECT user.name from user	WHERE
+user.openid=(
+ SELECT
 	      n3.node_name
       FROM
 	      nodeInfo n1
@@ -16,6 +18,7 @@
       WHERE
 	  n1.node_name = #{subclassName}
 	  	and n2.distance = 0
+)
     </select>
 
     <select id="">
