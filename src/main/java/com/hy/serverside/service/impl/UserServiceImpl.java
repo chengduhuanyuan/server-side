@@ -33,7 +33,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean saveSellto(String parentName, String subclassName) {
-        boolean b=baseMapper.saveSellto(parentName,subclassName);
+        boolean b;
+        String parentName1 = baseMapper.getParentName(subclassName);
+        if(parentName1==null||parentName==""){
+            b=false;
+        }
+        b=baseMapper.saveSellto(parentName,subclassName);
         return b;
     }
 

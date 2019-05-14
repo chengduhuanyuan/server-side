@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,9 +52,17 @@ public class UserController {
     *@Time 17:36
     */
     @GetMapping("/Sellto")
-    public JsonData Sellto(String parentName,String subclassName){
+    public ModelAndView Sellto(String parentName,String subclassName){
         boolean b = userService.saveSellto(parentName, subclassName);
-        return new JsonData(null,"",b);
+        if(b){
+            ModelAndView mv = new ModelAndView("redirect:../www.baidu.com");
+            return mv;
+        }else {
+//          失败返回的地址
+            ModelAndView mv = new ModelAndView("redirect:../www.baidu.com");
+            return mv;
+        }
+
     }
 
     /***
@@ -67,8 +76,17 @@ public class UserController {
     @GetMapping("/getParentName")
     public JsonData getParentName(String subclassName){
         String parentName=userService.getParentName(subclassName);
-        return new JsonData(parentName,"",true);
+        if(parentName==null){
+            return new JsonData(null,"fail",false);
+        }else {
+            return new JsonData(parentName,"success",true);
+        }
     }
 
+    @GetMapping("forword")
+    public ModelAndView forword(){
+        ModelAndView mv = new ModelAndView("redirect:../www.baidu.com");
+        return mv;
+    }
 
 }
