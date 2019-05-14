@@ -27,7 +27,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("call addFound(#{parentName},#{subclassName})")
     @Options(statementType = StatementType.CALLABLE)
-    boolean saveSellto(@Param("parentName") String parentName, @Param("subclassName") String subclassName);
+    void saveSellto(@Param("parentName") String parentName, @Param("subclassName") String subclassName);
 
 
     Relation getSuperior(String superior, String oneself);
