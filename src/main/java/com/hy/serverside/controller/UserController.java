@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,16 +54,9 @@ public class UserController {
     *@Time 17:36
     */
     @GetMapping("/Sellto")
-    public ModelAndView Sellto(String parentName,String subclassName){
+    public JsonData Sellto(String parentName,String subclassName){
         boolean b = userService.saveSellto(parentName, subclassName);
-        if(b){
-            ModelAndView mv = new ModelAndView("redirect:../www.baidu.com");
-            return mv;
-        }else {
-//          失败返回的地址
-            ModelAndView mv = new ModelAndView("redirect:../www.baidu.com");
-            return mv;
-        }
+        return new JsonData(null,"",b);
 
     }
 
@@ -79,14 +74,19 @@ public class UserController {
         if(parentName==null){
             return new JsonData(null,"fail",false);
         }else {
+
             return new JsonData(parentName,"success",true);
         }
     }
 
     @GetMapping("forword")
-    public ModelAndView forword(){
-        ModelAndView mv = new ModelAndView("redirect:../www.baidu.com");
-        return mv;
+    public void forword(HttpServletResponse response){
+//        ModelAndView mv = new ModelAndView("redirect:http://www.baidu.com");
+        try {
+            response.sendRedirect("http://www.baidu.com");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
