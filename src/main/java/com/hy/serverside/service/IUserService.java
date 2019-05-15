@@ -21,4 +21,6 @@ public interface IUserService extends IService<User> {
     Relation getSuperior(String superior, String oneself);
 
     String getParentName(String subclassName);
+
+    User getByopenId(String openId);
 }

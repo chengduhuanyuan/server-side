@@ -78,6 +78,26 @@ public class UserController {
         }
     }
 
+    /***
+    *@Description 登录
+    *@Param [response]
+    *@Return void
+    *@Author 杨席杰
+    *@Date 2019/5/15
+    *@Time 9:16
+    */
+    @GetMapping("/login")
+    public JsonData login(String openId,String Name){
+        boolean b=false;
+        User user = userService.getByopenId(openId);
+        if (user==null){
+            User u=new User(Name,openId,0);
+             b = userService.save(u);
+        }
+        return new JsonData(null,"",b);
+    }
+
+
     @GetMapping("forword")
     public void forword(HttpServletResponse response){
 //        ModelAndView mv = new ModelAndView("redirect:http://www.baidu.com");
