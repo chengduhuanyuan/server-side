@@ -98,6 +98,7 @@ public class UserController {
         if (user==null){
             User u=new User(Name,openId,0);
              b = userService.save(u);
+             userService.svaeNode(Name);
         }
         return new JsonData(null,"",b);
     }

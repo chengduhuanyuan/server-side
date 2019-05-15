@@ -25,4 +25,7 @@ user.openid=(
         select * from user where openid=#{openId}
     </select>
 
+    <select id="svaeNode">
+       INSERT INTO nodeInfo (node_name) VALUES (#{name})
+    </select>
 </mapper>
