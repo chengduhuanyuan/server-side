@@ -35,4 +35,6 @@ public interface UserMapper extends BaseMapper<User> {
     String getParentName(String subclassName);
 
     User getByopenId(String openId);
+
+    void svaeNode(String name);
 }

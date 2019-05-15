@@ -23,4 +23,6 @@ public interface IUserService extends IService<User> {
     String getParentName(String subclassName);
 
     User getByopenId(String openId);
+
+    void svaeNode(String name);
 }

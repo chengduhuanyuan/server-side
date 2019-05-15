@@ -55,14 +55,8 @@ public class UserController {
     */
     @GetMapping("/Sellto")
     public JsonData Sellto(String parentName,String subclassName){
-        User byopenId = userService.getByopenId(parentName);
-        if(byopenId.getLevel()==0){
-            return new JsonData(null,"升级为会员才能分销",false);
-        }else {
-            boolean b = userService.saveSellto(parentName, subclassName);
-            return new JsonData(null,"",b);
-        }
-
+        boolean b = userService.saveSellto(parentName, subclassName);
+        return new JsonData(null, "", b);
     }
 
     /***
@@ -98,6 +92,7 @@ public class UserController {
         if (user==null){
             User u=new User(Name,openId,0);
              b = userService.save(u);
+//             userService.svaeNode(Name);
         }
         return new JsonData(null,"",b);
     }

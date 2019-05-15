@@ -62,4 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User u=baseMapper.getByopenId(openId);
         return u;
     }
+
+    @Override
+    public void svaeNode(String name) {
+        baseMapper.svaeNode(name);
+    }
 }
