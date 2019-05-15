@@ -21,8 +21,8 @@ user.openid=(
 )
     </select>
 
-    <select id="">
-        select
+    <select id="getByopenId" resultType="User">
+        select * from user where openid=#{openId}
     </select>
 
 </mapper>

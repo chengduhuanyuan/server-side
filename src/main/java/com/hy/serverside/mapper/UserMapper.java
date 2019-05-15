@@ -33,4 +33,6 @@ public interface UserMapper extends BaseMapper<User> {
     Relation getSuperior(String superior, String oneself);
 //    查询分销上级
     String getParentName(String subclassName);
+
+    User getByopenId(String openId);
 }
