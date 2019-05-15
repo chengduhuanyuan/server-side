@@ -54,7 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public String getParentName(String subclassName) {
         String parentName=baseMapper.getParentName(subclassName);
-        return null;
+        return parentName;
     }
 
     @Override
