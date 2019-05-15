@@ -106,13 +106,11 @@ public class UserController {
     @GetMapping("/getMember")
     public JsonData member(String openId){
         User byopenId = userService.getByopenId(openId);
-        if(byopenId.getLevel()==0){
-            return new JsonData(0,"不是会员",false);
-        }else{
-            return new JsonData(byopenId.getLevel(),"是会员",true);
-        }
+
+            return new JsonData(byopenId,"是会员",true);
 
     }
+
 
 
     @GetMapping("forword")
