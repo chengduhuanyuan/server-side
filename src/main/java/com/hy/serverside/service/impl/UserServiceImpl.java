@@ -56,4 +56,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String parentName=baseMapper.getParentName(subclassName);
         return null;
     }
+
+    @Override
+    public User getByopenId(String openId) {
+        User u=baseMapper.getByopenId(openId);
+        return u;
+    }
 }
