@@ -7,18 +7,20 @@
     </select>
     
     <select id="getParentName" resultType="String">
-        SELECT user.name from user	WHERE
-user.openid=(
- SELECT
-	      n3.node_name
-      FROM
-	      nodeInfo n1
-      INNER JOIN nodeRelationship n2 ON n1.node_id = n2.ancestor
-      INNER JOIN nodeInfo n3 ON (n2.descendant-1) = n3.node_id
-      WHERE
-	  n1.node_name = #{subclassName}
-	  	and n2.distance = 0
-)
+        SELECT user.name FROM user
+        WHERE
+        user.openid=
+        (
+        SELECT
+             n3.node_name
+        FROM
+            nodeInfo n1
+        INNER JOIN nodeRelationship n2 ON n1.node_id = n2.descendant
+        INNER JOIN nodeInfo n3 ON n2.ancestor = n3.node_id
+        WHERE
+            n1.node_name = #{subclassName}
+            AND n2.distance=1
+            )
     </select>
 
     <select id="getByopenId" resultType="User">
