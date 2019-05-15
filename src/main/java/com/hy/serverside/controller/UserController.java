@@ -55,8 +55,13 @@ public class UserController {
     */
     @GetMapping("/Sellto")
     public JsonData Sellto(String parentName,String subclassName){
-        boolean b = userService.saveSellto(parentName, subclassName);
-        return new JsonData(null,"",b);
+        User byopenId = userService.getByopenId(parentName);
+        if(byopenId.getLevel()==0){
+            return new JsonData(null,"升级为会员才能分销",false);
+        }else {
+            boolean b = userService.saveSellto(parentName, subclassName);
+            return new JsonData(null,"",b);
+        }
 
     }
 
@@ -95,6 +100,25 @@ public class UserController {
              b = userService.save(u);
         }
         return new JsonData(null,"",b);
+    }
+    
+    /***
+    *@Description 查询是不是会员
+    *@Param [response]
+    *@Return void
+    *@Author 杨席杰
+    *@Date 2019/5/15
+    *@Time 10:58
+    */
+    @GetMapping("/getMember")
+    public JsonData member(String openId){
+        User byopenId = userService.getByopenId(openId);
+        if(byopenId.getLevel()==0){
+            return new JsonData(0,"不是会员",false);
+        }else{
+            return new JsonData(byopenId.getLevel(),"是会员",true);
+        }
+
     }
 
 
