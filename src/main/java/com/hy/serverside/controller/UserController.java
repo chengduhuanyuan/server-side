@@ -1,6 +1,7 @@
 package com.hy.serverside.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hy.serverside.entity.Coupon;
 import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 import com.hy.serverside.service.IUserService;
@@ -92,6 +93,8 @@ public class UserController {
         if (user==null){
             User u=new User(Name,openId,0);
              b = userService.save(u);
+//             给新用户创建消费卷
+             userService.saveCoupon(u.getOpenid());
 //             userService.svaeNode(Name);
         }
         return new JsonData(null,"",b);
@@ -116,16 +119,28 @@ public class UserController {
 
     }
 
-
+    /***
+    *@Description 查询新人优惠卷
+    *@Param [response]
+    *@Return void
+    *@Author 杨席杰
+    *@Date 2019/5/19
+    *@Time 15:48
+    */
+    @GetMapping("/getCoupon")
+    public JsonData getCoupon(String userId){
+        Coupon coupon =userService.getCoupon(userId);
+        if (coupon==null){
+            return new JsonData(null,"",false);
+        }else {
+        return new JsonData(coupon,"",true);
+        }
+    }
 
     @GetMapping("forword")
-    public void forword(HttpServletResponse response){
-//        ModelAndView mv = new ModelAndView("redirect:http://www.baidu.com");
-        try {
-            response.sendRedirect("http://www.baidu.com");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public JsonData forword(HttpServletResponse response){
+     userService.saveCoupon("AAAAAAAAAAAA");
+        return new JsonData(null,"",false);
     }
 
 }

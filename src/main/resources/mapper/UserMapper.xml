@@ -30,4 +30,16 @@
     <select id="svaeNode">
        INSERT INTO nodeInfo (node_name) VALUES (#{name})
     </select>
+
+    <select id="getCoupon" resultType="Coupon">
+        SELECT coupon.id,coupon.describe,coupon.offset,coupon_user.coupon_user FROM coupon
+        INNER JOIN coupon_user
+        ON coupon_user.coupon_id=coupon.id
+        WHERE coupon_user.coupon_user=#{userId}
+    </select>
+
+    <select id="saveCoupon">
+      INSERT INTO coupon_user VALUES ("20190520Y",#{openId})
+    </select>
+
 </mapper>
