@@ -1,6 +1,7 @@
 package com.hy.serverside.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hy.serverside.entity.Coupon;
 import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 import com.hy.serverside.mapper.UserMapper;
@@ -66,5 +67,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public void svaeNode(String name) {
         baseMapper.svaeNode(name);
+    }
+
+    @Override
+    public Coupon getCoupon(String userId) {
+        Coupon coupon=baseMapper.getCoupon(userId);
+
+        return coupon;
+    }
+
+    @Override
+    public void saveCoupon(String openId) {
+       baseMapper.saveCoupon(openId);
     }
 }
