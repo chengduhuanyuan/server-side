@@ -2,6 +2,7 @@ package com.hy.serverside.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hy.serverside.config.RedisCacheMybatis;
+import com.hy.serverside.entity.Coupon;
 import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 import org.apache.ibatis.annotations.CacheNamespace;
@@ -37,4 +38,8 @@ public interface UserMapper extends BaseMapper<User> {
     User getByopenId(String openId);
 
     void svaeNode(String name);
+
+    Coupon getCoupon(String userId);
+
+    void saveCoupon(String openId);
 }
