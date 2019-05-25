@@ -1,53 +1,49 @@
-package com.hy.serverside.util;
+package com.hy.serverside.config;
 
 import com.github.wxpay.sdk.WXPay;
-import com.hy.serverside.config.WeChatPayConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @ClassName: WXPayUtil
+ * @ClassName: WxPayService
  * @Description: TODO 微信支付工具类
  * @Author: Kaiser
  * @Date: 2019/4/20 9:08
  * @Version: 1.0
  */
-public class WXPayUtil {
-    private WeChatPayConfig weChatPayConfig = new WeChatPayConfig();
-
+@Component
+public class WxPayService {
+    @Autowired
+    private WeChatPayConfig weChatPayConfig;
     private WXPay wxPay = new WXPay(weChatPayConfig);
-
     /**
      *  统一下单
      * @param body 商品描述
      * @param outTradeNo 商户订单号
-     * @param deviceInfo 设备号
-     * @param feeType 标价币种
      * @param totalFee 标价金额 单位分
      * @param spbillCreateIp 终端IP
      * @param notifyUrl 通知地址
      * @param tradeType 交易类型
      * @return 支付结果集
      */
-    public Map<String,String> unifiedOrder(String body,String outTradeNo,String deviceInfo,
-                                           String feeType,String totalFee,String spbillCreateIp,
-                                           String notifyUrl,String tradeType) throws Exception {
-        Map<String,String> data = new HashMap<>(9);
+    public Map<String,String> unifiedOrder(String body,String outTradeNo, String totalFee,String spbillCreateIp,
+                                           String notifyUrl,String tradeType,String openid) throws Exception {
+        Map<String,String> data = new HashMap<>(8);
         data.put("body", body);
         data.put("out_trade_no", outTradeNo);
-        data.put("device_info", deviceInfo);
-        data.put("fee_type", feeType);
+        data.put("fee_type", "CNY");
         data.put("total_fee", totalFee);
         data.put("spbill_create_ip", spbillCreateIp);
         data.put("notify_url", notifyUrl);
         data.put("trade_type", tradeType);
+        data.put("openid", openid);
+        System.out.println("将数据放入MAP");
+        Map<String, String> stringMap = wxPay.unifiedOrder(data);
+        System.out.println("ssss"+stringMap);
         return wxPay.unifiedOrder(data);
-    }
-
-    public Map<String,String> unifiedOrder(String body,String outTradeNo,String deviceInfo,
-                                           String totalFee,String spbillCreateIp, String notifyUrl) throws Exception {
-        return this.unifiedOrder(body,outTradeNo,deviceInfo,Constant.FEE_TYPE,totalFee,spbillCreateIp,notifyUrl,Constant.TRADE_TYPE);
     }
 
     /**

@@ -114,7 +114,6 @@ public class UserController {
         }else{
             return new JsonData(byopenId,"是会员",true);
         }
-
     }
 
     /***

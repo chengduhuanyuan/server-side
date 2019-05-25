@@ -2,22 +2,23 @@ package com.hy.serverside.config;
 
 import com.github.wxpay.sdk.WXPayConfig;
 import com.hy.serverside.util.Constant;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 
 /**
  * @ClassName: WeChatPayConfig
- * @Description: TODO 微信支付配置文件
+ * @Description: TODO
  * @Author: Kaiser
- * @Date: 2019/4/19 13:04
+ * @Date: 2019/5/25 17:08
  * @Version: 1.0
  */
+@Component
 public class WeChatPayConfig implements WXPayConfig {
-
     private byte[] certData;
 
     public WeChatPayConfig(){
-        String certPath = "D:\\apiclient_cert.p12";
+        String certPath = "D:\\1536289081_20190522_cert\\apiclient_cert.p12";
         File file = new File(certPath);
         InputStream certStream = null;
         try {
