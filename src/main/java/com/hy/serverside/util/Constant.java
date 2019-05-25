@@ -9,7 +9,7 @@ package com.hy.serverside.util;
  */
 public final class Constant {
 
-    public static final String APPID = "wxd9bf4fc56d78d0f8";
+    public static final String APPID = "wx4090b3ba169287ef";
     /**
      *  key
      */
@@ -17,11 +17,11 @@ public final class Constant {
     /**
      *  支付密匙
      */
-    public static final String PAY_KEY = "";
+    public static final String PAY_KEY = "huayuanwangluo2019KEJIYOUXIAN123";
     /**
      *  商户号
      */
-    public static final String MCHID = "asdasd";
+    public static final String MCHID = "1536289081";
     /**
      * 标价币种
      */
@@ -37,4 +37,11 @@ public final class Constant {
     public static final String WECHAT_APPID_VALUE = "wx4090b3ba169287ef";
     public static final String WECHAT_SECRET_VALUE = "ded712bd96af9befcb4105c6a2f37261";
 
+    /**
+     *  支付通知地址
+     */
+
+    public static final String PAY_NOTIFY_URL = "http://140.246.250.63:9090/pay/notify/order";
+
+    public static final String TRADE = "SUCCESS";
 }
