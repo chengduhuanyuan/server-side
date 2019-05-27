@@ -30,7 +30,7 @@ import java.util.Map;
 public class WxPayController {
     private WeChatPayConfig config = new WeChatPayConfig();
     private WXPay wxpay = new WXPay(config);
-
+//    private WXPay wxpay = new WXPay(config, WXPayConstants.SignType.MD5, true);
 
     /**
      *  统一下单

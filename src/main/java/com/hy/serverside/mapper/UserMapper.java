@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.mapping.StatementType;
 
+import java.util.List;
+
 /**
  * @ClassName: UserMapper
  * @Description: TODO
@@ -39,7 +41,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     void svaeNode(String name);
 
-    Coupon getCoupon(String userId);
+    List<Coupon> getCoupon(String userId);
 
     void saveCoupon(String openId);
 }

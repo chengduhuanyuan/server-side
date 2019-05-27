@@ -9,6 +9,8 @@ import com.hy.serverside.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @ClassName: UserServiceImpl
  * @Description: TODO
@@ -70,8 +72,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public Coupon getCoupon(String userId) {
-        Coupon coupon=baseMapper.getCoupon(userId);
+    public List<Coupon> getCoupon(String userId) {
+        List<Coupon> coupon=baseMapper.getCoupon(userId);
 
         return coupon;
     }

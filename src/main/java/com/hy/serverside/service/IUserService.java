@@ -5,6 +5,8 @@ import com.hy.serverside.entity.Coupon;
 import com.hy.serverside.entity.Relation;
 import com.hy.serverside.entity.User;
 
+import java.util.List;
+
 /**
  * @ClassName: IUserService
  * @Description: TODO
@@ -27,7 +29,7 @@ public interface IUserService extends IService<User> {
 
     void svaeNode(String name);
 
-    Coupon getCoupon(String userId);
+    List<Coupon> getCoupon(String userId);
 
     void saveCoupon(String openId);
 }
