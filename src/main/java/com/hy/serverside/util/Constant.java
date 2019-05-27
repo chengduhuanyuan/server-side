@@ -42,6 +42,7 @@ public final class Constant {
      */
 
     public static final String PAY_NOTIFY_URL = "http://140.246.250.63:9090/pay/notify/order";
+//    public static final String PAY_NOTIFY_URL = "http://localhost:9090/pay/notify/order";
 
     public static final String TRADE = "SUCCESS";
 }
