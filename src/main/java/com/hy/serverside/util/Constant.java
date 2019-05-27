@@ -45,4 +45,9 @@ public final class Constant {
 //    public static final String PAY_NOTIFY_URL = "http://localhost:9090/pay/notify/order";
 
     public static final String TRADE = "SUCCESS";
+
+    public static final String RETURN_CODE = "return_code";
+
+    public static final String RESULT_CODE = "result_code";
+    public static final String TRADE_STATE = "trade_state";
 }

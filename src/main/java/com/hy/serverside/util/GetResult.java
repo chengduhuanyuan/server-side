@@ -1,6 +1,7 @@
 package com.hy.serverside.util;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName: GetResult
@@ -15,5 +16,12 @@ public class GetResult {
             return new JsonData(null,"fail",false);
         }
         return new JsonData(list,"success",true);
+    }
+
+    public static JsonData payResult(Map<String,String> map){
+        if (Constant.TRADE.equals(map.get(Constant.RETURN_CODE))){
+            return new JsonData(map,"success",true);
+        }
+        return new JsonData(map,"fail",false);
     }
 }

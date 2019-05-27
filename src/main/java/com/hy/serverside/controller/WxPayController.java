@@ -1,22 +1,13 @@
 package com.hy.serverside.controller;
 
-import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
-import com.github.binarywang.wxpay.bean.request.BaseWxPayRequest;
-import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
-import com.github.binarywang.wxpay.exception.WxPayException;
-import com.github.binarywang.wxpay.service.WxPayService;
-import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.wxpay.sdk.WXPay;
+import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.hy.serverside.config.WeChatPayConfig;
 import com.hy.serverside.entity.PayBean;
 import com.hy.serverside.util.Constant;
+import com.hy.serverside.util.GetResult;
 import com.hy.serverside.util.JsonData;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +28,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/pay")
 public class WxPayController {
-    //    private WxPayService wxService;
-
-//    @Autowired
-//    public WxPayController(WxPayService wxService) {
-//        this.wxService = wxService;
-//    }
-
     private WeChatPayConfig config = new WeChatPayConfig();
     private WXPay wxpay = new WXPay(config);
 
@@ -67,39 +51,17 @@ public class WxPayController {
         data.put("trade_type", Constant.TRADE_TYPE);
         data.put("openid",pay.getOpenid());
         Map<String, String> resp = wxpay.unifiedOrder(data);
-        return new JsonData(resp,"ss",true);
+        if(Constant.TRADE.equals(resp.get(Constant.RETURN_CODE)) && Constant.TRADE.equals(resp.get(Constant.RESULT_CODE))){
+            return new JsonData(resp,"success",true);
+        }
+        return new JsonData(resp,"fail",false);
     }
 
-
-//    /**
-//     *  统一下单
-//     * @param pay 支付请求函数
-//     * @return
-//     * @throws Exception
-//     */
-//    @ResponseBody
-//    @PostMapping("/createOrder")
-//    public JsonData createOrder(@RequestBody PayBean pay){
-//        try {
-//            WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
-//            orderRequest.setBody(pay.getBody());
-//            orderRequest.setOutTradeNo(pay.getOutTradeNo());
-//            orderRequest.setNotifyUrl(Constant.PAY_NOTIFY_URL);
-//            orderRequest.setTradeType(Constant.TRADE_TYPE);
-//            //元转成分
-//            orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(pay.getTotalFee()));
-//            orderRequest.setOpenid(pay.getOpenid());
-//            orderRequest.setSpbillCreateIp("171.214.136.238");
-//            orderRequest.setTimeStart("yyyyMMddHHmmss");
-//            orderRequest.setTimeExpire("yyyyMMddHHmmss");
-//            WxPayUnifiedOrderResult result = wxService.unifiedOrder(orderRequest);
-//            return new JsonData(result,"success",true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new JsonData(null,"fail",false);
-//        }
-//    }
-
+    /**
+     *  支付回调
+     * @param request
+     * @return
+     */
     @ResponseBody
     @PostMapping("/notify/order")
     public String notifyUrl(HttpServletRequest request){
@@ -118,17 +80,15 @@ public class WxPayController {
                 //将流转换成字符串
                 String result = new String(outStream.toByteArray(), "UTF-8");
                 Map<String, String> notifyMap = WXPayUtil.xmlToMap(result);
-                //验证签名
-                if (wxpay.isPayResultNotifySignatureValid(notifyMap)) {
-                    // 签名正确
-                    // 进行处理。
-                    // 注意特殊情况：订单已经退款，但收到了支付结果成功的通知，不应把商户侧订单状态从退款改成支付成功
-                    //通知微信支付系统接收到信息
-                    return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
-                }
-                else {
-                    // 签名错误，如果数据里没有sign字段，也认为是签名错误
-                    return "fail";
+                if (Constant.TRADE.equals(notifyMap.get(Constant.RETURN_CODE))){
+                    //验证签名
+                    if (wxpay.isPayResultNotifySignatureValid(notifyMap)) {
+                        // 签名正确
+                        // 进行处理
+                        // 注意特殊情况：订单已经退款，但收到了支付结果成功的通知，不应把商户侧订单状态从退款改成支付成功
+                        //通知微信支付系统接收到信息
+                        return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+                    }
                 }
             }
             return "fail";
@@ -138,10 +98,52 @@ public class WxPayController {
         }
     }
 
-//    @PostMapping("/notify/order")
-//    public String parseOrderNotifyResult(@RequestBody String xmlData) throws WxPayException {
-//        final WxPayOrderNotifyResult notifyResult = this.wxService.parseOrderNotifyResult(xmlData);
-//        // TODO 根据自己业务场景需要构造返回对象
-//        return WxPayNotifyResponse.success("成功");
-//    }
+    /**
+     *  关闭订单
+     * @param outTradeNo
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @PostMapping("/closeOrder")
+    public JsonData closeOrder(@RequestBody String outTradeNo) throws Exception {
+        Map<String, String> data = new HashMap<>(1);
+        data.put("out_trade_no", outTradeNo);
+        Map<String, String> map = wxpay.closeOrder(data);
+        return GetResult.payResult(map);
+    }
+
+    /**
+     *  订单查询
+     * @param outTradeNo
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @PostMapping("/queryOrder")
+    public JsonData queryOrder(@RequestBody String outTradeNo) throws Exception {
+        Map<String, String> data = new HashMap<>(1);
+        data.put("out_trade_no", outTradeNo);
+        Map<String, String> orderQuery = wxpay.orderQuery(data);
+        if (Constant.TRADE.equals(orderQuery.get(Constant.RETURN_CODE)) && Constant.TRADE.equals(orderQuery.get(Constant.RESULT_CODE)) && Constant.TRADE.equals(orderQuery.get(Constant.TRADE_STATE))){
+            return new JsonData(orderQuery,"success",true);
+        }
+        return new JsonData(orderQuery,"fail",false);
+    }
+
+    /**
+     *  撤销订单
+     * @param outTradeNo
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @PostMapping("/reverseOrder")
+    public JsonData reverseOrder(@RequestBody String outTradeNo) throws Exception {
+        Map<String, String> da = new HashMap<>(1);
+        da.put("out_trade_no", outTradeNo);
+        Map<String, String> or = wxpay.orderQuery(da);
+        return GetResult.payResult(or);
+    }
+
 }
