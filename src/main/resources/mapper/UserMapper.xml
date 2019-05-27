@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hy.serverside.mapper.UserMapper">
-
+    <resultMap id="MapCoupon" type="Coupon">
+        <id property="id" column="id"></id>
+        <result property="describe" column="describe"></result>
+        <result property="offset" column="offset"></result>
+        <result property="couponUser" column="coupon_user"></result>
+    </resultMap>
     <select id="getUserTest" resultType="com.hy.serverside.entity.User">
         select * from user where id = #{id};
     </select>
@@ -31,7 +36,8 @@
        INSERT INTO nodeInfo (node_name) VALUES (#{name})
     </select>
 
-    <select id="getCoupon" resultType="Coupon">
+
+    <select id="getCoupon" resultMap="MapCoupon">
         SELECT coupon.id,coupon.describe,coupon.offset,coupon_user.coupon_user FROM coupon
         INNER JOIN coupon_user
         ON coupon_user.coupon_id=coupon.id

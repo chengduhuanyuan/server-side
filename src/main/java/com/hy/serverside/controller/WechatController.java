@@ -29,6 +29,7 @@ public class WechatController {
         return new JsonData(user,"success",true);
     }
 
+   
 
     /**
      *  将用户信息保存到数据库
@@ -48,6 +49,18 @@ public class WechatController {
         }
         return new JsonData(null,"保存失败",false);
     }
-*/
-
+    */
+    
+    /***
+    *@Description 微信支付
+    *@Param []
+    *@Return com.hy.serverside.util.JsonData
+    *@Author 杨席杰
+    *@Date 2019/5/24
+    *@Time 15:34
+    */
+    @PostMapping("/Payfor")
+    public JsonData Payfor(){
+        return new JsonData();
+    }
 }

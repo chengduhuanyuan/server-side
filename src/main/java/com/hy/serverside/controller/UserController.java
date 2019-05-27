@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -124,9 +125,11 @@ public class UserController {
     *@Date 2019/5/19
     *@Time 15:48
     */
+    @CrossOrigin
     @GetMapping("/getCoupon")
     public JsonData getCoupon(String userId){
-        Coupon coupon =userService.getCoupon(userId);
+        List<Coupon> coupon =userService.getCoupon(userId);
+        System.out.println(coupon);
         if (coupon==null){
             return new JsonData(null,"",false);
         }else {
