@@ -14,6 +14,7 @@ public final class Constant {
      *  key
      */
     public static final String ACCESS_TOKEN_KEY = "accessTokenKey";
+    public static final String JSAPI_TICKET_KEY = "jsapi_ticket";
     /**
      *  支付密匙
      */
@@ -34,14 +35,13 @@ public final class Constant {
     /**
      *  公众号常量值
      */
-    public static final String WECHAT_APPID_VALUE = "wx4090b3ba169287ef";
     public static final String WECHAT_SECRET_VALUE = "ded712bd96af9befcb4105c6a2f37261";
 
     /**
      *  支付通知地址
      */
 
-    public static final String PAY_NOTIFY_URL = "http://140.246.250.63:9090/pay/notify/order";
+    public static final String PAY_NOTIFY_URL = "http://www.anniemodern.com/nimei/pay/notify/order";
 //    public static final String PAY_NOTIFY_URL = "http://localhost:9090/pay/notify/order";
 
     public static final String TRADE = "SUCCESS";
@@ -50,4 +50,5 @@ public final class Constant {
 
     public static final String RESULT_CODE = "result_code";
     public static final String TRADE_STATE = "trade_state";
+    public static final int SUCCESS_CODE = 200;
 }

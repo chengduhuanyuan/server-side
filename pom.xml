@@ -133,11 +133,11 @@
             <artifactId>weixin-java-mp</artifactId>
             <version>3.4.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-pay</artifactId>
-            <version>3.4.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.binarywang</groupId>-->
+            <!--<artifactId>weixin-java-pay</artifactId>-->
+            <!--<version>3.4.0</version>-->
+        <!--</dependency>-->
         <!--<dependency>-->
             <!--<groupId>org.dom4j</groupId>-->
             <!--<artifactId>dom4j</artifactId>-->

@@ -14,6 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class WechatAccountConfig {
-    private String appid = Constant.WECHAT_APPID_VALUE;
+    private String appid = Constant.APPID;
     private String secret = Constant.WECHAT_SECRET_VALUE;
 }

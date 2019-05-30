@@ -14,4 +14,8 @@ public class TimeUtil {
     public static String getCurrentTime(){
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
+
+    public static long getSignTimeStmap(){
+        return System.currentTimeMillis() / 1000;
+    }
 }

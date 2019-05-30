@@ -2,17 +2,17 @@ package com.hy.serverside;
 
 import com.github.wxpay.sdk.WXPay;
 import com.hy.serverside.config.WeChatPayConfig;
-import com.hy.serverside.mapper.ProductMapper;
-import com.hy.serverside.service.impl.ProductServiceImpl;
 import com.hy.serverside.util.Constant;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import com.hy.serverside.wechat.HttpRequest;
+import com.hy.serverside.util.RedisCacheUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,8 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ServerSideApplicationTests {
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
     @Test
     public void contextLoads() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
@@ -62,4 +64,17 @@ public class ServerSideApplicationTests {
         }
     }
 
+    @Test
+    public void accTest(){
+        HttpRequest httpRequest = new HttpRequest();
+        String token = httpRequest.getAccessToken();
+        System.out.println(token);
+    }
+
+    @Test
+    public void redisTest(){
+        RedisCacheUtil redisCacheUtil = new RedisCacheUtil();
+        redisCacheUtil.setMyRedisCache(Constant.ACCESS_TOKEN_KEY,"nothing",120,redisTemplate);
+        System.out.println("success");
+    }
 }

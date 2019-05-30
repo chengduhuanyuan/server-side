@@ -15,8 +15,8 @@ import java.nio.charset.Charset;
 
 public class getQrCode {
     public static String getQrCode(String setCode) throws Exception {
-        RedisTemplate<String,Object> redisTemplate=new RedisTemplate<>();
-        String accessToken =new RedisCacheUtil().getRedisCache(Constant.ACCESS_TOKEN_KEY, redisTemplate);
+        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+        String accessToken =new RedisCacheUtil().getMyRedisCache(Constant.ACCESS_TOKEN_KEY,redisTemplate);
         System.out.println(accessToken);
         String url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token="+accessToken;
         System.out.println(url);
