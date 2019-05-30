@@ -47,6 +47,7 @@ public final class Constant {
     public static final String TRADE = "SUCCESS";
 
     public static final String RETURN_CODE = "return_code";
+    public static final String RETURN_MSG = "return_msg";
 
     public static final String RESULT_CODE = "result_code";
     public static final String TRADE_STATE = "trade_state";
