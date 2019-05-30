@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class WxPayController {
         data.put("body", pay.getBody());
         data.put("out_trade_no", pay.getOutTradeNo());
         data.put("fee_type", Constant.FEE_TYPE);
-        data.put("total_fee", new DecimalFormat("#.00").format(Double.parseDouble(pay.getTotalFee())));
+        data.put("total_fee", pay.getTotalFee());
         data.put("spbill_create_ip", NetworkInterfaceUtil.getMyIp());
         data.put("notify_url", Constant.PAY_NOTIFY_URL);
         data.put("trade_type", Constant.TRADE_TYPE);
@@ -77,37 +76,65 @@ public class WxPayController {
      */
     @ResponseBody
     @PostMapping("/notify/order")
-    public String notifyUrl(HttpServletRequest request){
+    public String notifyUrl(HttpServletRequest request) {
+        String resSuccessXml = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+        String resFailXml = "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[报文为空]]></return_msg></xml>";
+
+        InputStream inStream;
         try {
-            InputStream inStream = request.getInputStream();
-            int bufferrSize = 1024;
-            if (inStream != null) {
-                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-                byte[] tempBytes = new byte[bufferrSize];
-                int count = -1;
-                while ((count = inStream.read(tempBytes, 0, bufferrSize)) != -1) {
-                    outStream.write(tempBytes, 0, count);
-                }
-                tempBytes = null;
-                outStream.flush();
-                //将流转换成字符串
-                String result = new String(outStream.toByteArray(), "UTF-8");
-                Map<String, String> notifyMap = WXPayUtil.xmlToMap(result);
-                if (Constant.TRADE.equals(notifyMap.get(Constant.RETURN_CODE))){
-                    //验证签名
-                    if (wxpay.isPayResultNotifySignatureValid(notifyMap)) {
-                        // 签名正确
-                        // 进行处理
-                        // 注意特殊情况：订单已经退款，但收到了支付结果成功的通知，不应把商户侧订单状态从退款改成支付成功
-                        //通知微信支付系统接收到信息
-                        return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
-                    }
-                }
+            inStream = request.getInputStream();
+            ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while ((len = inStream.read(buffer)) != -1) {
+                outSteam.write(buffer, 0, len);
             }
-            return "fail";
+            System.out.println("wxnotify:微信支付----start----");
+            // 获取微信调用我们notify_url的返回信息
+            String result = new String(outSteam.toByteArray(), "utf-8");
+            System.out.println("wxnotify:微信支付----result----=" + result);
+            // 关闭流
+            outSteam.close();
+            inStream.close();
+            // xml转换为map
+            Map<String, String> resultMap = WXPayUtil.xmlToMap(result);
+            System.out.println("获取到的数据是："+resultMap);
+            if (WXPayConstants.SUCCESS.equalsIgnoreCase(resultMap.get(Constant.RETURN_CODE))) {
+
+                System.out.println("wxnotify:微信支付----返回成功");
+
+                if (WXPayUtil.isSignatureValid(resultMap, Constant.PAY_KEY)) {
+
+                    // 订单处理 操作 orderconroller 的回写操作?
+                    System.out.println("wxnotify:微信支付----验证签名成功");
+
+                    // 通知微信.异步确认成功.必写.不然会一直通知后台.八次之后就认为交易失败了.
+                    return resSuccessXml;
+
+                } else {
+                    System.out.println("wxnotify:微信支付----判断签名错误");
+                    return resFailXml;
+                }
+
+            } else {
+                System.out.println("wxnotify:支付失败,错误信息：" + resultMap.get(Constant.RETURN_MSG));
+                return resFailXml;
+            }
+
+            // 付款记录修改 & 记录付款日志
+
+//            // 回调方法，处理业务 - 修改订单状态
+//            WXPayUtil.getLogger().info("wxnotify:微信支付回调：修改的订单===>" + resultMap.get("out_trade_no"));
+//            int updateResult = ...;
+//            if (updateResult > 0) {
+//                WXPayUtil.getLogger().info("wxnotify:微信支付回调：修改订单支付状态成功");
+//            } else {
+//                WXPayUtil.getLogger().error("wxnotify:微信支付回调：修改订单支付状态失败");
+//            }
+
         } catch (Exception e) {
-            e.printStackTrace();
-            return "fail";
+            System.out.println("wxnotify:支付回调发布异常：" + e);
+            return resFailXml;
         }
     }
 
