@@ -5,10 +5,10 @@ spring:
     include: druid,mybatisplus,httpclient
   redis:
     host: 140.246.250.63
-    password: CDhuayuan@2019$anniemodern
+    #password: CDhuayuan@2019$anniemodern
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://140.246.250.63:3306/${db}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&tinyIntlisBit=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    url: jdbc:mysql://140.246.250.63:3306/${db}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&tinyIntlisBit=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
     username: root
 #    password: 3204
     password: 0q8O<G+Ry!lj
@@ -16,3 +16,5 @@ logging:
   config: classpath:log4j2.yml
 server:
   port: 9090
+  servlet:
+    context-path: /nimei/

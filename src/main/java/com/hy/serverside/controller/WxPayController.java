@@ -5,14 +5,13 @@ import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.hy.serverside.config.WeChatPayConfig;
 import com.hy.serverside.entity.PayBean;
-import com.hy.serverside.util.Constant;
-import com.hy.serverside.util.GetResult;
-import com.hy.serverside.util.JsonData;
+import com.hy.serverside.util.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +29,7 @@ import java.util.Map;
 public class WxPayController {
     private WeChatPayConfig config = new WeChatPayConfig();
     private WXPay wxpay = new WXPay(config);
+
 //    private WXPay wxpay = new WXPay(config, WXPayConstants.SignType.MD5, true);
 
     /**
@@ -45,14 +45,27 @@ public class WxPayController {
         data.put("body", pay.getBody());
         data.put("out_trade_no", pay.getOutTradeNo());
         data.put("fee_type", Constant.FEE_TYPE);
-        data.put("total_fee", pay.getTotalFee());
-        data.put("spbill_create_ip", "171.214.136.238");
+        data.put("total_fee", new DecimalFormat("#.00").format(Double.parseDouble(pay.getTotalFee())));
+        data.put("spbill_create_ip", NetworkInterfaceUtil.getMyIp());
         data.put("notify_url", Constant.PAY_NOTIFY_URL);
         data.put("trade_type", Constant.TRADE_TYPE);
         data.put("openid",pay.getOpenid());
         Map<String, String> resp = wxpay.unifiedOrder(data);
         if(Constant.TRADE.equals(resp.get(Constant.RETURN_CODE)) && Constant.TRADE.equals(resp.get(Constant.RESULT_CODE))){
-            return new JsonData(resp,"success",true);
+            //生成支付签名
+            String prepayId = resp.get("prepay_id");
+            String nonceStr = WXPayUtil.generateNonceStr();
+            long timeStamp = TimeUtil.getSignTimeStmap();
+            String signType = "MD5";
+            Map<String, String> map = new HashMap<>(5);
+            map.put("appId",Constant.APPID);
+            map.put("timeStamp",String.valueOf(timeStamp));
+            map.put("nonceStr",nonceStr);
+            map.put("package","prepay_id=".concat(prepayId));
+            map.put("signType",signType);
+            String signature = WXPayUtil.generateSignature(map, Constant.PAY_KEY);
+            map.put("paySign",signature);
+            return new JsonData(map,"success",true);
         }
         return new JsonData(resp,"fail",false);
     }

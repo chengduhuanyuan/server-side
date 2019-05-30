@@ -17,23 +17,17 @@ import java.io.*;
 public class WeChatPayConfig implements WXPayConfig {
     private byte[] certData;
 
-    public WeChatPayConfig(){
-        String certPath = "D:\\1536289081_20190522_cert\\apiclient_cert.p12";
-        File file = new File(certPath);
-        InputStream certStream = null;
+    public WeChatPayConfig() {
         try {
-            certStream = new FileInputStream(file);
+            File file = new File("D:" + File.separator + "usr" + File.separator + "cert" + File.separator, "apiclient_cert.p12");
+            InputStream certStream = new FileInputStream(file);
             this.certData = new byte[(int) file.length()];
             certStream.read(this.certData);
-        }  catch (IOException e) {
+            certStream.close();
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                certStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+
     }
 
     @Override
